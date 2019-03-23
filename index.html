@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,24 +11,29 @@
     <!-- Firebase Reference -->
     <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    
+
 </head>
+
 <body>
-    <form>
-        <div class="form-group">
-            <label for="text-input">Enter Text</label>
-            <input class="form-control" id="text-input" placeholder="text" type="text">
-        </div>
-        <button class="btn btn-primary" id="text-btn">Submit</button>
-    </form>
+    <div class="container">
+        <h1>Lost in Textlation...</h1>
+
+        <form>
+            <div class="form-group">
+                <label for="text-input">Enter Text</label>
+                <input class="form-control" id="text-input" placeholder="text" type="text">
+            </div>
+            <button class="btn btn-primary" id="text-btn">Submit</button>
+        </form>
+    </div>
 </body>
 <script src="assets/javascript/app.js"></script>
 <script>
-var apiKey = "0Zs_pqOsfZm4pVDFyRyvxh2G1qyxYKTqaDPNLmI7SSng";
-var apiURL = "https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2017-09-21?key=" + apiKey;
+    var apiKey = "0Zs_pqOsfZm4pVDFyRyvxh2G1qyxYKTqaDPNLmI7SSng";
+    var apiURL = "https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2017-09-21?key=" + apiKey;
 
 
-// function getAnalysis() {
+    // function getAnalysis() {
     $.ajax({
         url: apiURL,
         headers: {
@@ -38,10 +44,11 @@ var apiURL = "https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?versi
         dataType: "jsonp",
         contentType: "application/json",
         method: "GET"
-      }).then(function(response) {
-          console.log(response)
-})
+    }).then(function (response) {
+        console.log(response)
+    })
 // }
 // getAnalysis()
 </script>
+
 </html>

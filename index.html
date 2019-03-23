@@ -6,9 +6,42 @@
     <title>Project-1</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
-    <script src="assets/javascript/app.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- Firebase Reference -->
+    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
 </head>
 <body>
-    
+    <form>
+        <div class="form-group">
+            <label for="text-input">Enter Text</label>
+            <input class="form-control" id="text-input" placeholder="text" type="text">
+        </div>
+        <button class="btn btn-primary" id="text-btn">Submit</button>
+    </form>
 </body>
+<script src="assets/javascript/app.js"></script>
+<script>
+var apiKey = "0Zs_pqOsfZm4pVDFyRyvxh2G1qyxYKTqaDPNLmI7SSng";
+var apiURL = "https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2017-09-21?key=" + apiKey;
+
+
+// function getAnalysis() {
+    $.ajax({
+        url: apiURL,
+        headers: {
+            authrization: "key=[0Zs_pqOsfZm4pVDFyRyvxh2G1qyxYKTqaDPNLmI7SSng]"
+        },
+        async: true,
+        crossDomain: true,
+        dataType: "jsonp",
+        contentType: "application/json",
+        method: "GET"
+      }).then(function(response) {
+          console.log(response)
+})
+// }
+// getAnalysis()
+</script>
 </html>

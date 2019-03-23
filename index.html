@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,17 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <!-- Firebase Reference -->
-    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    
 </head>
+
 <body>
-    
 
 
 
-    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
+
+
 
     <form>
         <div class="form-group">
@@ -26,28 +24,35 @@
         </div>
         <button class="btn btn-primary" id="text-btn">Submit</button>
     </form>
-</body>
-<script src="assets/javascript/app.js"></script>
-<script>
-var apiKey = "0Zs_pqOsfZm4pVDFyRyvxh2G1qyxYKTqaDPNLmI7SSng";
-var apiURL = "https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2017-09-21?key=" + apiKey;
 
 
-// function getAnalysis() {
-    $.ajax({
-        url: apiURL,
-        headers: {
-            authrization: "key=[0Zs_pqOsfZm4pVDFyRyvxh2G1qyxYKTqaDPNLmI7SSng]"
-        },
-        async: true,
-        crossDomain: true,
-        dataType: "jsonp",
-        contentType: "application/json",
-        method: "GET"
-      }).then(function(response) {
-          console.log(response)
-})
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
+    <script src="assets/javascript/app.js"></script>
+    <script>
+        var apiKey = "0Zs_pqOsfZm4pVDFyRyvxh2G1qyxYKTqaDPNLmI7SSng";
+        var apiURL = "https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2017-09-21?key=" + apiKey;
+
+
+        // function getAnalysis() {
+        $.ajax({
+            url: apiURL,
+            headers: {
+                authorization: "key=[0Zs_pqOsfZm4pVDFyRyvxh2G1qyxYKTqaDPNLmI7SSng]"
+            },
+            async: true,
+            crossDomain: true,
+            dataType: "jsonp",
+            contentType: "application/json",
+            method: "GET"
+        }).then(function (response) {
+            console.log(response)
+        })
 // }
 // getAnalysis()
-</script>
+    </script>
+</body>
+
 </html>

@@ -6,14 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Project-1</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
+    <!-- Google Fonts Reference -->
+    <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+    <!-- Bootstrap Reference -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <!-- Firebase Reference -->
-    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Local CSS Reference -->
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
+  
 
 </head>
-
 <body>
     <div class="container">
         <h1>Lost in Textlation...</h1>
@@ -21,14 +22,24 @@
         <form>
             <div class="form-group">
                 <label for="text-input">Enter Text</label>
-                <input class="form-control" id="text-input" placeholder="text" type="text">
+                <input class="form-control" id="submit-text" placeholder="text" type="text">
             </div>
-            <button class="btn btn-primary" id="text-btn">Submit</button>
+            <button class="btn btn-primary" id="submit-btn">Submit</button>
         </form>
+
+
+
+
     </div>
-</body>
+
+      <!-- Firebase Reference -->
+  <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+  <!-- jQuery Reference -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="assets/javascript/app.js"></script>
-<script>
+</body>
+
+<!-- <script>
     var apiKey = "0Zs_pqOsfZm4pVDFyRyvxh2G1qyxYKTqaDPNLmI7SSng";
     var apiURL = "https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2017-09-21?key=" + apiKey;
 
@@ -49,6 +60,7 @@
     })
 // }
 // getAnalysis()
-</script>
+</script> -->
+
 
 </html>

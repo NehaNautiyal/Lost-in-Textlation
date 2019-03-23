@@ -1,0 +1,16 @@
+body{
+    background: silver;
+    color: white;
+    /* font-family: 'Monoton', cursive; */
+    text-align: center;
+}
+.container  {
+    border: 960 px solid white;
+    margin: auto;
+    padding-top: 20 px;
+    font-size: 100%;
+    font-family: 'Monoton', cursive;
+
+}
+
+    

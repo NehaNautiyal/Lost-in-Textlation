@@ -12,31 +12,59 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <!-- Local CSS Reference -->
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
-  
+
 
 </head>
+
 <body>
     <div class="container">
         <h1>Lost in Textlation...</h1>
 
         <form>
             <div class="form-group">
-                <label for="text-input">Enter Text</label>
-                <input class="form-control" id="submit-text" placeholder="text" type="text">
+                <input class="form-control" for="text-input" id="submit-text" placeholder="Enter text to be analyzed here" type="text">
             </div>
-            <button class="btn btn-primary" id="submit-btn">Submit</button>
+            <button class="btn btn-primary" id="submit-btn">Check Tone</button>
         </form>
+
+        <div class="row">
+            <div class="card col-lg-12 pl-0 pr-0">
+                <div class="bg-dark card-header text-light">
+                    Summary of Text Analysis
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Text</th>
+                                <th scope="col">Polarity</th>
+                                <th scope="col">Polarity Confidence</th>
+                                <th scope="col">Subjectivity</th>
+                                <th scope="col">Subjectivity Confidence</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <section>
+            <div id="analysis"></div>
+        </section>
 
 
 
 
     </div>
-
-      <!-- Firebase Reference -->
-  <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
-  <!-- jQuery Reference -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="assets/javascript/app.js"></script>
+    <!-- Sentimood Reference -->
+    <!-- <script type="text/javascript" src="your-path/sentimood.js"></script> -->
+    <!-- Firebase Reference -->
+    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+    <!-- jQuery Reference -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="assets/javascript/app.js"></script>
 </body>
 
 <!-- <script>

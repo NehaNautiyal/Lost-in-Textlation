@@ -24,20 +24,20 @@
 <script src="assets/javascript/app.js"></script>
 <script>
 var apiKey = "0Zs_pqOsfZm4pVDFyRyvxh2G1qyxYKTqaDPNLmI7SSng";
-var apiURL = "https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2017-09-21?key=" + apiKey;
+var apiURL = "https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2017-09-21";
 
 
 // function getAnalysis() {
     $.ajax({
         url: apiURL,
         headers: {
-            authrization: "key=[0Zs_pqOsfZm4pVDFyRyvxh2G1qyxYKTqaDPNLmI7SSng]"
+            apikey: "0Zs_pqOsfZm4pVDFyRyvxh2G1qyxYKTqaDPNLmI7SSng"
         },
         async: true,
         crossDomain: true,
         dataType: "jsonp",
         contentType: "application/json",
-        method: "GET"
+        method: "POST"
       }).then(function(response) {
           console.log(response)
 })

@@ -27,10 +27,10 @@
 var apiURL = "https://svc02.api.bitext.com/sentiment/"
 $.ajax({
         url: apiURL,
-        // headers: {
-        //     authrization: "key=[0Zs_pqOsfZm4pVDFyRyvxh2G1qyxYKTqaDPNLmI7SSng]"
-        // },
-        headers: { "HeaderName": "fd5385f172d340618f77121d772e59a8" },
+        headers: {
+            authorization: "key=[fd5385f172d340618f77121d772e59a8]"
+        },
+        // headers: { "HeaderName": "fd5385f172d340618f77121d772e59a8" },
         async: true,
         crossDomain: true,
         dataType: "json",

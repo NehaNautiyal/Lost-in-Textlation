@@ -148,8 +148,9 @@ $(document).ready(function () {
         var sv = snapshot.val();
 
         // Update the html display
+        num = 0
         var newTableHeight = $('<th scope="row">'); //Analysis
-        var newTableRow = $("<tr>");
+        var newTableRow = $("<tr>").attr("id", "analysis-" + num);
         var newTableDataTrigWord = $("<td>");
         var newTableDataScore = $("<td>")
         var newTableDataPol = $("<td>"); //Polarity
@@ -167,9 +168,19 @@ $(document).ready(function () {
 
         var newData = newTableRow.append(newTableHeight, newTableDataTrigWord, newTableDataPol, newTableDataScore,
             newTableDataPolConf, newTableDataSub, newTableDataSubConf);
-        $("tbody").append(newData);
+        $("tbody").prepend(newData);
 
+        // Change the background color of the text with data depending on if it is positive, neutral, or negative
+        
+        if (sv.analysis.polarity === "positive") {
+            $("#analysis-" + num).css("background", "green");
+        } else if (sv.analysis.polarity === "neutral") {
+            $("#analysis-" + num).css("background", "yellow")
+        } else if (sv.analysis.polarity === "negative") {
+            $("#analysis-" + num).css("background", "red")
+        }
 
+        num++;
 
     }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);

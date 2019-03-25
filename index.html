@@ -1,47 +1,93 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Project-1</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
+    <!-- Sentimood Reference -->
+    <!-- <script type="text/javascript" src="your-path/sentimood.js"></script> -->
+    <!-- Google Fonts Reference -->
+    <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+    <!-- Bootstrap Reference -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- Local CSS Reference -->
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
+
+
+</head>
+
+<body>
+    <div class="container">
+        <h1>Lost in Textlation...</h1>
+
+        <form>
+            <div class="form-group">
+                <input class="form-control" for="text-input" id="submit-text" placeholder="Enter text to be analyzed here" type="text">
+            </div>
+            <button class="btn btn-primary" id="submit-btn">Check Tone</button>
+        </form>
+
+        <div class="row">
+            <div class="card col-lg-12 pl-0 pr-0">
+                <div class="bg-dark card-header text-light">
+                    Summary of Text Analysis
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Text</th>
+                                <th scope="col">Polarity</th>
+                                <th scope="col">Polarity Confidence</th>
+                                <th scope="col">Subjectivity</th>
+                                <th scope="col">Subjectivity Confidence</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <section>
+            <div id="analysis"></div>
+        </section>
+
+
+
+
+    </div>
+    
     <!-- Firebase Reference -->
     <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+    <!-- jQuery Reference -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    
-</head>
-<body>
-    <form>
-        <div class="form-group">
-            <label for="text-input">Enter Text</label>
-            <input class="form-control" id="text-input" placeholder="text" type="text">
-        </div>
-        <button class="btn btn-primary" id="text-btn">Submit</button>
-    </form>
+    <script src="assets/javascript/app.js"></script>
 </body>
-<script src="assets/javascript/app.js"></script>
-<script>
-var apiKey = "0Zs_pqOsfZm4pVDFyRyvxh2G1qyxYKTqaDPNLmI7SSng";
-var apiURL = "https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2017-09-21";
 
-
-// function getAnalysis() {
+<!-- <script>
+    var apiKey = "0Zs_pqOsfZm4pVDFyRyvxh2G1qyxYKTqaDPNLmI7SSng";
+    var apiURL = "https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2017-09-21?key=" + apiKey;
+    // function getAnalysis() {
     $.ajax({
         url: apiURL,
         headers: {
-            apikey: "0Zs_pqOsfZm4pVDFyRyvxh2G1qyxYKTqaDPNLmI7SSng"
+            authrization: "key=[0Zs_pqOsfZm4pVDFyRyvxh2G1qyxYKTqaDPNLmI7SSng]"
         },
         async: true,
         crossDomain: true,
         dataType: "jsonp",
         contentType: "application/json",
-        method: "POST"
-      }).then(function(response) {
-          console.log(response)
-})
+        method: "GET"
+    }).then(function (response) {
+        console.log(response)
+    })
 // }
 // getAnalysis()
-</script>
+</script> -->
+
+
 </html>

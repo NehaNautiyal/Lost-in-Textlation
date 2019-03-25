@@ -1,11 +1,11 @@
 body{
     background: silver;
-    font-family: 'Monoton', cursive;
     text-align: center;
 }
 
 h1 {
     color: white;
+    font-family: 'Monoton', cursive;
 }
 
 .container  {
@@ -13,7 +13,6 @@ h1 {
     margin: auto;
     padding-top: 20 px;
     font-size: 100%;
-    font-family: 'Monoton', cursive;
 }
 
 .btn-primary {

@@ -31,6 +31,7 @@ $(document).ready(function () {
                     polarity: "",
                     polarity_confidence: "",
                     subjectivity: "",
+
                     subjectivity_confidence: "",
                     score: "",
                     positiveWords: "",
@@ -66,6 +67,7 @@ $(document).ready(function () {
             score: "",
             positiveWords: "",
             negativeWords: "",
+
         }
     }
 
@@ -74,6 +76,7 @@ $(document).ready(function () {
         // Prevent anyone from clicking submit without entering any text
         e.preventDefault();
         analyze = $("#submit-text").val().trim();
+
         var sentimood = new Sentimood();
         var analysis = sentimood.analyze(analyze);
         var positivity = sentimood.positivity(analyze);
@@ -85,6 +88,7 @@ $(document).ready(function () {
         console.log(score);
         console.log(positiveWords);
         console.log(negativeWords);
+
 
         var apiURL = "https://cors-anywhere.herokuapp.com/https://api.aylien.com/api/v1/sentiment";
 
@@ -121,6 +125,7 @@ $(document).ready(function () {
                     polarity: polarity,
                     polarity_confidence: polarity_confidence,
                     subjectivity: subjectivity,
+
                     subjectivity_confidence: subjectivity_confidence,
                     score: score,
                     positiveWords: positiveWords,
@@ -134,9 +139,11 @@ $(document).ready(function () {
             state.analysis.polarity_confidence = polarity_confidence;
             state.analysis.subjectivity = subjectivity;
             state.analysis.subjectivity_confidence = subjectivity_confidence;
+
             state.analysis.score = score
             state.analysis.positiveWords = positiveWords;
             state.analysis.negativeWords = negativeWords;
+
         });
 
         // Empty the text field
@@ -146,6 +153,7 @@ $(document).ready(function () {
     // If anything changes in the usersRef in the firebase, that needs to be updated
     usersRef.on("child_changed", function (snapshot) {
         var sv = snapshot.val();
+
 
         // Update the html display
         num = 0
@@ -185,6 +193,7 @@ $(document).ready(function () {
     }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
+
 
 
 

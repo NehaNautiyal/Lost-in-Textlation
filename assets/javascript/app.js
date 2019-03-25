@@ -37,7 +37,7 @@ $(document).ready(function () {
                     positiveWords: "",
                     negativeWords: "",
 
-                    syn: "None yet"
+                    syn: "None requested"
                 }
             });
 
@@ -70,7 +70,6 @@ $(document).ready(function () {
             positiveWords: "",
             negativeWords: "",
             syn: []
-
         }
     }
 
@@ -89,7 +88,7 @@ $(document).ready(function () {
         var negativeWords = negativity.words
         console.log(analysis);
         console.log(score);
-        console.log(positiveWords);
+        console.log(positiveWords); //is an array
         console.log(negativeWords);
 
 
@@ -117,9 +116,6 @@ $(document).ready(function () {
             polarity_confidence = response.polarity_confidence;
             subjectivity_confidence = response.subjectivity_confidence;
 
-
-
-
             // Update this in the database
             usersRef.child(userId).update({
                 id: userId,
@@ -131,7 +127,7 @@ $(document).ready(function () {
 
                     subjectivity_confidence: subjectivity_confidence,
                     score: score,
-                    syn: "None yet",
+                    syn: "None requested",
                     positiveWords: positiveWords,
                     negativeWords: negativeWords
                 }
@@ -171,13 +167,26 @@ $(document).ready(function () {
         var newTableDataSub = $("<td>"); // Subjectivity
         var newTableDataSubConf = $("<td>"); //subjectivity confidence
 
-        //Make the Trigger words into buttons to find the synonym
-        var b = $("<button>");
-        //Problem - If there are no positive or negative words, the button still appears but empty
-        b.addClass("triggerWord").attr("id", sv.text).text(sv.analysis.positiveWords, sv.analysis.negativeWords);
+        //Need a for loop to make a new button for every trigger word
+        for (let j = 0; j < sv.analysis.positiveWords.length - 1; j++) {
+            //Make the Trigger words into buttons to find the synonym
+            var b = $("<button>");
+            b.addClass("triggerWord").attr("id", sv.analysis.positiveWords[j]).text(sv.analysis.positiveWords[j]);
+            console.log(sv.analysis.positiveWords[j]);
+            newTableDataTrigWord.prepend(b);
+        }
+
+        for (let k = 0; k < sv.analysis.negativeWords.length - 1; k++) {
+            //Make the Trigger words into buttons to find the synonym
+            var b = $("<button>");
+            b.addClass("triggerWord").attr("id", sv.analysis.negativeWords[k]).text(sv.analysis.negativeWords[k]);
+            newTableDataTrigWord.prepend(b);
+        }
+
+        //Problem - If you click on a trigger word from a different row
 
         newTableHeight.append(sv.text);
-        newTableDataTrigWord.append(b);
+        // newTableDataTrigWord.append(b);
         newTableDataSyn.text(sv.analysis.syn);
         newTableDataPol.text(sv.analysis.polarity);
         newTableDataScore.text(sv.analysis.score);
@@ -216,32 +225,38 @@ $(document).ready(function () {
             method: "GET"
         }).then(function (response) {
             console.log(response);
+
+            //Reset the local state.analysis.syn array
+            state.analysis.syn = [];
+
             for (let i = 0; i < response[0].meta.syns[0].length; i++) {
-                console.log(response[0].meta.syns[0][i]);
-                state.analysis.syn.push(response[0].meta.syns[0][i]);
+                var synonymsFromMerriam = response[0].meta.syns[0][i];
+                state.analysis.syn.push(synonymsFromMerriam);
+                console.log(synonymsFromMerriam);
+                console.log(`State.analysis.syn: ${state.analysis.syn}`);
             }
-        
 
-         // Update this in the database
-         usersRef.child(userId).update({
-            id: userId,
-            text: state.text,
-            analysis: {
-                polarity: state.analysis.polarity,
-                polarity_confidence: state.analysis.polarity_confidence,
-                subjectivity: state.analysis.subjectivity,
 
-                subjectivity_confidence: state.analysis.subjectivity_confidence,
-                score: state.analysis.score,
-                syn: state.analysis.syn.join(" "),
-                positiveWords: state.analysis.positiveWords,
-                negativeWords: state.analysis.negativeWords
-            }
+            // Update this in the database
+            usersRef.child(userId).update({
+                id: userId,
+                text: state.text,
+                analysis: {
+                    polarity: state.analysis.polarity,
+                    polarity_confidence: state.analysis.polarity_confidence,
+                    subjectivity: state.analysis.subjectivity,
+
+                    subjectivity_confidence: state.analysis.subjectivity_confidence,
+                    score: state.analysis.score,
+                    syn: state.analysis.syn.join(" "),
+                    positiveWords: state.analysis.positiveWords,
+                    negativeWords: state.analysis.negativeWords
+                }
+            });
+
         });
 
     });
-
-});
 
 
 

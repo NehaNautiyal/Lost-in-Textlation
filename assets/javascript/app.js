@@ -36,6 +36,8 @@ $(document).ready(function () {
                     score: "",
                     positiveWords: "",
                     negativeWords: "",
+
+                    syn: "None yet"
                 }
             });
 
@@ -67,6 +69,7 @@ $(document).ready(function () {
             score: "",
             positiveWords: "",
             negativeWords: "",
+            syn: []
 
         }
     }
@@ -128,6 +131,7 @@ $(document).ready(function () {
 
                     subjectivity_confidence: subjectivity_confidence,
                     score: score,
+                    syn: "None yet",
                     positiveWords: positiveWords,
                     negativeWords: negativeWords
                 }
@@ -153,33 +157,39 @@ $(document).ready(function () {
     // If anything changes in the usersRef in the firebase, that needs to be updated
     usersRef.on("child_changed", function (snapshot) {
         var sv = snapshot.val();
-
+        console.log(sv);
 
         // Update the html display
         num = 0
         var newTableHeight = $('<th scope="row">'); //Analysis
         var newTableRow = $("<tr>").attr("id", "analysis-" + num);
-        var newTableDataTrigWord = $("<td>");
-        var newTableDataScore = $("<td>")
+        var newTableDataTrigWord = $("<td>"); //Trigger Word
+        var newTableDataSyn = $("<td>"); //Synonyms
+        var newTableDataScore = $("<td>") // Score
         var newTableDataPol = $("<td>"); //Polarity
         var newTableDataPolConf = $("<td>"); //Polarity Confidence
         var newTableDataSub = $("<td>"); // Subjectivity
         var newTableDataSubConf = $("<td>"); //subjectivity confidence
 
+        //Make the Trigger words into buttons to find the synonym
+        var b = $("<button>");
+        //Problem - If there are no positive or negative words, the button still appears but empty
+        b.addClass("triggerWord").attr("id", sv.text).text(sv.analysis.positiveWords, sv.analysis.negativeWords);
+
         newTableHeight.append(sv.text);
-        newTableDataTrigWord.text(sv.analysis.positiveWords + " " + sv.analysis.negativeWords)
+        newTableDataTrigWord.append(b);
+        newTableDataSyn.text(sv.analysis.syn);
         newTableDataPol.text(sv.analysis.polarity);
         newTableDataScore.text(sv.analysis.score);
         newTableDataPolConf.text(sv.analysis.polarity_confidence);
         newTableDataSub.text(sv.analysis.subjectivity);
         newTableDataSubConf.text(sv.analysis.subjectivity_confidence);
 
-        var newData = newTableRow.append(newTableHeight, newTableDataTrigWord, newTableDataPol, newTableDataScore,
+        var newData = newTableRow.append(newTableHeight, newTableDataTrigWord, newTableDataSyn, newTableDataPol, newTableDataScore,
             newTableDataPolConf, newTableDataSub, newTableDataSubConf);
         $("tbody").prepend(newData);
 
         // Change the background color of the text with data depending on if it is positive, neutral, or negative
-        
         if (sv.analysis.polarity === "positive") {
             $("#analysis-" + num).css("background", "green");
         } else if (sv.analysis.polarity === "neutral") {
@@ -194,7 +204,44 @@ $(document).ready(function () {
         console.log("The read failed: " + errorObject.code);
     });
 
+    $(document).on("click", ".triggerWord", function () {
+        var word = $(this).attr("id");
+        console.log(word);
 
+        wordApiKey = "fe9aa725-d588-4523-ae33-60a5fd3be34c";
+        wordUrl = "https://www.dictionaryapi.com/api/v3/references/thesaurus/json/" + word + "?key=" + wordApiKey;
+
+        $.ajax({
+            url: wordUrl,
+            method: "GET"
+        }).then(function (response) {
+            console.log(response);
+            for (let i = 0; i < response[0].meta.syns[0].length; i++) {
+                console.log(response[0].meta.syns[0][i]);
+                state.analysis.syn.push(response[0].meta.syns[0][i]);
+            }
+        
+
+         // Update this in the database
+         usersRef.child(userId).update({
+            id: userId,
+            text: state.text,
+            analysis: {
+                polarity: state.analysis.polarity,
+                polarity_confidence: state.analysis.polarity_confidence,
+                subjectivity: state.analysis.subjectivity,
+
+                subjectivity_confidence: state.analysis.subjectivity_confidence,
+                score: state.analysis.score,
+                syn: state.analysis.syn.join(" "),
+                positiveWords: state.analysis.positiveWords,
+                negativeWords: state.analysis.negativeWords
+            }
+        });
+
+    });
+
+});
 
 
 

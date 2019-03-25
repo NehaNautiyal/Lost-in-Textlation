@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Project-1</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
     <!-- Google Fonts Reference -->
     <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
     <!-- Bootstrap Reference -->
@@ -37,7 +38,11 @@
                         <thead>
                             <tr>
                                 <th scope="col">Text</th>
+
+                                <th scope="col">Trigger Words</th>
                                 <th scope="col">Polarity</th>
+                                <th scope="col">Tone Score</th>
+
                                 <th scope="col">Polarity Confidence</th>
                                 <th scope="col">Subjectivity</th>
                                 <th scope="col">Subjectivity Confidence</th>
@@ -57,9 +62,11 @@
 
 
 
+
     </div>
     <!-- Sentimood Reference -->
-    <!-- <script type="text/javascript" src="your-path/sentimood.js"></script> -->
+    <script type="text/javascript" src="assets/javascript/sentimood.js"></script>
+
     <!-- Firebase Reference -->
     <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
     <!-- jQuery Reference -->
@@ -70,8 +77,6 @@
 <!-- <script>
     var apiKey = "0Zs_pqOsfZm4pVDFyRyvxh2G1qyxYKTqaDPNLmI7SSng";
     var apiURL = "https://gateway.watsonplatform.net/tone-analyzer/api/v3/tone?version=2017-09-21?key=" + apiKey;
-
-
     // function getAnalysis() {
     $.ajax({
         url: apiURL,

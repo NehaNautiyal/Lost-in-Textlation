@@ -187,7 +187,7 @@ $(document).ready(function () {
 
         newTableHeight.append(sv.text);
         // newTableDataTrigWord.append(b);
-        newTableDataSyn.text(sv.analysis.syn);
+        newTableDataSyn.text(sv.analysis.syn).addClass("syn");
         newTableDataPol.text(sv.analysis.polarity);
         newTableDataScore.text(sv.analysis.score);
         newTableDataPolConf.text(sv.analysis.polarity_confidence);
@@ -236,23 +236,23 @@ $(document).ready(function () {
                 console.log(`State.analysis.syn: ${state.analysis.syn}`);
             }
 
-
+        $(".syn").text(state.analysis.syn.join(" "));
             // Update this in the database
-            usersRef.child(userId).update({
-                id: userId,
-                text: state.text,
-                analysis: {
-                    polarity: state.analysis.polarity,
-                    polarity_confidence: state.analysis.polarity_confidence,
-                    subjectivity: state.analysis.subjectivity,
+            // usersRef.child(userId).update({
+            //     id: userId,
+            //     text: state.text,
+            //     analysis: {
+            //         polarity: state.analysis.polarity,
+            //         polarity_confidence: state.analysis.polarity_confidence,
+            //         subjectivity: state.analysis.subjectivity,
 
-                    subjectivity_confidence: state.analysis.subjectivity_confidence,
-                    score: state.analysis.score,
-                    syn: state.analysis.syn.join(" "),
-                    positiveWords: state.analysis.positiveWords,
-                    negativeWords: state.analysis.negativeWords
-                }
-            });
+            //         subjectivity_confidence: state.analysis.subjectivity_confidence,
+            //         score: state.analysis.score,
+            //         syn: state.analysis.syn.join(" "),
+            //         positiveWords: state.analysis.positiveWords,
+            //         negativeWords: state.analysis.negativeWords
+            //     }
+            // });
 
         });
 

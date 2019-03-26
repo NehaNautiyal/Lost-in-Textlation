@@ -57,6 +57,7 @@ $(document).ready(function () {
     var subjectivity;
     var polarity_confidence;
     var subjectivity_confidence;
+    var num = 0;
 
     var state = {
         id: "",
@@ -156,7 +157,7 @@ $(document).ready(function () {
         console.log(sv);
 
         // Update the html display
-        num = 0
+
         var newTableHeight = $('<th scope="row">'); //Analysis
         var newTableRow = $("<tr>").attr("id", "analysis-" + num);
         var newTableDataTrigWord = $("<td>"); //Trigger Word
@@ -174,6 +175,7 @@ $(document).ready(function () {
             b.addClass("triggerWord").attr("id", sv.analysis.positiveWords[j]).text(sv.analysis.positiveWords[j]);
             console.log(sv.analysis.positiveWords[j]);
             newTableDataTrigWord.prepend(b);
+            newTableDataSyn.text(sv.analysis.syn).addClass("syn").attr("id", "syn-" + sv.analysis.positiveWords[j]);
         }
 
         for (let k = 0; k < sv.analysis.negativeWords.length - 1; k++) {
@@ -181,18 +183,18 @@ $(document).ready(function () {
             var b = $("<button>");
             b.addClass("triggerWord").attr("id", sv.analysis.negativeWords[k]).text(sv.analysis.negativeWords[k]);
             newTableDataTrigWord.prepend(b);
+            newTableDataSyn.text(sv.analysis.syn).addClass("syn").attr("id", "syn-" + sv.analysis.negativeWords[k]);
         }
 
-        //Problem - If you click on a trigger word from a different row
+        var polConPer = sv.analysis.polarity_confidence * 100;
+        var subConPer = sv.analysis.subjectivity_confidence * 100;
 
-        newTableHeight.append(sv.text);
-        // newTableDataTrigWord.append(b);
-        newTableDataSyn.text(sv.analysis.syn).addClass("syn");
+        newTableHeight.append(sv.text);        
         newTableDataPol.text(sv.analysis.polarity);
         newTableDataScore.text(sv.analysis.score);
-        newTableDataPolConf.text(sv.analysis.polarity_confidence);
+        newTableDataPolConf.text(polConPer.toFixed(2) + "%");
         newTableDataSub.text(sv.analysis.subjectivity);
-        newTableDataSubConf.text(sv.analysis.subjectivity_confidence);
+        newTableDataSubConf.text(subConPer.toFixed(2) + "%");
 
         var newData = newTableRow.append(newTableHeight, newTableDataTrigWord, newTableDataSyn, newTableDataPol, newTableDataScore,
             newTableDataPolConf, newTableDataSub, newTableDataSubConf);
@@ -208,7 +210,7 @@ $(document).ready(function () {
         }
 
         num++;
-
+        console.log(num);
     }, function (errorObject) {
         console.log("The read failed: " + errorObject.code);
     });
@@ -236,7 +238,8 @@ $(document).ready(function () {
                 console.log(`State.analysis.syn: ${state.analysis.syn}`);
             }
 
-        $(".syn").text(state.analysis.syn.join(" "));
+            // $("#syn-" + num).text(state.analysis.syn.join(" "));
+            $("#syn-"+ word).text(state.analysis.syn.join(" "));
             // Update this in the database
             // usersRef.child(userId).update({
             //     id: userId,

@@ -75,9 +75,12 @@ $(document).ready(function () {
     }
 
     // When you click the submit button
-    $("#submit-btn").on("click", function (e) {
-        // Prevent anyone from clicking submit without entering any text
-        e.preventDefault();
+    // $("#submit-btn").on("click", function (e) {
+    $("#submit-text").keypress(function(e) {   
+         
+    if (event.which === 32 ) {
+            
+        
         analyze = $("#submit-text").val().trim();
 
         var sentimood = new Sentimood();
@@ -146,9 +149,11 @@ $(document).ready(function () {
             state.analysis.negativeWords = negativeWords;
 
         });
-
         // Empty the text field
         $("#submit-text").val("");
+    }
+
+        
     });
 
     // If anything changes in the usersRef in the firebase, that needs to be updated
@@ -162,9 +167,9 @@ $(document).ready(function () {
         var newTableRow = $("<tr>").attr("id", "analysis-" + num);
         var newTableDataTrigWord = $("<td>"); //Trigger Word
         var newTableDataSyn = $("<td>"); //Synonyms
-        var newTableDataScore = $("<td>") // Score
+        var newTableDataScore = $("<i>") // Emoji as icon
         var newTableDataPol = $("<td>"); //Polarity
-        var newTableDataPolConf = $("<td>"); //Polarity Confidence
+        // var newTableDataPolConf = $("<td>"); //Polarity Confidence
         var newTableDataSub = $("<td>"); // Subjectivity
         var newTableDataSubConf = $("<td>"); //subjectivity confidence
 
@@ -176,6 +181,7 @@ $(document).ready(function () {
             console.log(sv.analysis.positiveWords[j]);
             newTableDataTrigWord.prepend(b);
             newTableDataSyn.text(sv.analysis.syn).addClass("syn").attr("id", "syn-" + sv.analysis.positiveWords[j]);
+            
         }
 
         for (let k = 0; k < sv.analysis.negativeWords.length - 1; k++) {
@@ -184,29 +190,32 @@ $(document).ready(function () {
             b.addClass("triggerWord").attr("id", sv.analysis.negativeWords[k]).text(sv.analysis.negativeWords[k]);
             newTableDataTrigWord.prepend(b);
             newTableDataSyn.text(sv.analysis.syn).addClass("syn").attr("id", "syn-" + sv.analysis.negativeWords[k]);
+            
         }
 
         var polConPer = sv.analysis.polarity_confidence * 100;
         var subConPer = sv.analysis.subjectivity_confidence * 100;
 
         newTableHeight.append(sv.text);        
-        newTableDataPol.text(sv.analysis.polarity);
-        newTableDataScore.text(sv.analysis.score);
-        newTableDataPolConf.text(polConPer.toFixed(2) + "%");
-        newTableDataSub.text(sv.analysis.subjectivity);
-        newTableDataSubConf.text(subConPer.toFixed(2) + "%");
+        newTableDataPol.text(`${polConPer.toFixed(2)}% ${sv.analysis.polarity}`);
+        newTableDataScore.attr("id", "emoji-" + sv.text);
+        // newTableDataPolConf.text(polConPer.toFixed(2) + "%");
+        newTableDataSub.text(`${subConPer.toFixed(2)}% ${sv.analysis.subjectivity}`);
+        // newTableDataSubConf.text(subConPer.toFixed(2) + "%");
 
-        var newData = newTableRow.append(newTableHeight, newTableDataTrigWord, newTableDataSyn, newTableDataPol, newTableDataScore,
-            newTableDataPolConf, newTableDataSub, newTableDataSubConf);
+        var newData = newTableRow.append(newTableHeight, newTableDataTrigWord, newTableDataSyn, newTableDataPol, newTableDataScore, newTableDataSub);
         $("tbody").prepend(newData);
 
         // Change the background color of the text with data depending on if it is positive, neutral, or negative
         if (sv.analysis.polarity === "positive") {
             $("#analysis-" + num).css("background", "green");
+            $("#emoji-" + sv.text).addClass("twa twa-smiley");
         } else if (sv.analysis.polarity === "neutral") {
             $("#analysis-" + num).css("background", "yellow")
+            $("#emoji-" + sv.text).addClass("twa twa-expressionless");
         } else if (sv.analysis.polarity === "negative") {
             $("#analysis-" + num).css("background", "red")
+            $("#emoji-" + sv.text).addClass("twa twa-open-mouth");
         }
 
         num++;

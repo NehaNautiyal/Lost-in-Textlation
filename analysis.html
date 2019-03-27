@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Lost in Textlation</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <!-- Google Fonts Reference -->
     <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
     <!-- Bootstrap Reference -->
@@ -21,23 +21,23 @@
 
 <body>
     <div class="container">
+        <div id="fb-root"></div>
+        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script>
 
         <h1>Lost in Textlation...</h1>
         <a href="https://twitter.com/intent/tweet?button_hashtag=lostintextlation&ref_src=twsrc%5Etfw" class="twitter-hashtag-button"
             data-show-count="false">Tweet #lostintextlation</a>
 
-        <div id="fb-root"></div>
-
-        <div class="fb-share-button" data-href="https://nehanautiyal.github.io/Project-1" data-layout="button"
-            data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnehanautiyal.github.io%2FProject-1&amp;src=sdkpreparse"
+        <div class="button" data-href="https://nehanautiyal.github.io/Project-1" data-layout="button"
+            data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnehanautiyal.github.io%2FProject-1&ampsrc=sdkpreparse"
                 class="fb-xfbml-parse-ignore">Share</a></div>
-        <form>
-            <div class="form-group">
-                <input class="form-control" for="text-input" id="submit-text" placeholder="Enter text to be analyzed here"
-                    type="text">
-            </div>
-            <button class="btn btn-primary" id="submit-btn">Check Tone</button>
-        </form>
+
+        <div class="form-group">
+            <input class="form-control" for="text-input" id="submit-text" placeholder="Type your text for analysis or paste your text here"
+                type="text">
+        </div>
+        <!-- <button class="btn btn-primary" id="submit-btn">Check Tone</button> -->
+
 
         <div class="row">
             <div class="card col-lg-12 pl-0 pr-0">
@@ -56,7 +56,7 @@
                                 <th scope="col">Tone Score</th>
 
                                 <!-- <th scope="col">Polarity Confidence</th> -->
-                                <th scope="col">Subjectivity</th>
+                                <!-- <th scope="col">Subjectivity</th> -->
                                 <!-- <th scope="col">Subjectivity Confidence</th> -->
 
                             </tr>
@@ -77,8 +77,7 @@
 
 
     </div>
-    <!-- Facebook Button -->
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script>
+   
     <!-- Twitter Button     -->
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     <!-- Sentimood Reference -->

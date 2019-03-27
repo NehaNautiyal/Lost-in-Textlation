@@ -76,9 +76,9 @@ $(document).ready(function () {
 
     // When you click the submit button
     // $("#submit-btn").on("click", function (e) {
-    $("#submit-text").keypress(function(e) {   
-         
-    if (event.which === 32 ) {
+    $("#submit-text").keypress(function(event) {   
+        //  event.preventDefault();
+    if (event.which === 32 || event.which === 13) {
             
         
         analyze = $("#submit-text").val().trim();
@@ -150,7 +150,7 @@ $(document).ready(function () {
 
         });
         // Empty the text field
-        $("#submit-text").val("");
+        // $("#submit-text").val("");
     }
 
         
@@ -167,11 +167,12 @@ $(document).ready(function () {
         var newTableRow = $("<tr>").attr("id", "analysis-" + num);
         var newTableDataTrigWord = $("<td>"); //Trigger Word
         var newTableDataSyn = $("<td>"); //Synonyms
-        var newTableDataScore = $("<i>") // Emoji as icon
+        var newTableDataEmoji = $("<i>") // Emoji as icon
+        var newTableDataScore = $("<td>") // Polarity Score
         var newTableDataPol = $("<td>"); //Polarity
         // var newTableDataPolConf = $("<td>"); //Polarity Confidence
-        var newTableDataSub = $("<td>"); // Subjectivity
-        var newTableDataSubConf = $("<td>"); //subjectivity confidence
+        // var newTableDataSub = $("<td>"); // Subjectivity
+        // var newTableDataSubConf = $("<td>"); //subjectivity confidence
 
         //Need a for loop to make a new button for every trigger word
         for (let j = 0; j < sv.analysis.positiveWords.length - 1; j++) {
@@ -194,28 +195,32 @@ $(document).ready(function () {
         }
 
         var polConPer = sv.analysis.polarity_confidence * 100;
-        var subConPer = sv.analysis.subjectivity_confidence * 100;
+        // var subConPer = sv.analysis.subjectivity_confidence * 100;
 
         newTableHeight.append(sv.text);        
         newTableDataPol.text(`${polConPer.toFixed(2)}% ${sv.analysis.polarity}`);
-        newTableDataScore.attr("id", "emoji-" + sv.text);
+        newTableDataScore.text(sv.analysis.score);
+        newTableDataEmoji.addClass("emoji");
+        newTableDataPol.append(newTableDataEmoji);
         // newTableDataPolConf.text(polConPer.toFixed(2) + "%");
-        newTableDataSub.text(`${subConPer.toFixed(2)}% ${sv.analysis.subjectivity}`);
+        // newTableDataSub.text(`${subConPer.toFixed(2)}% ${sv.analysis.subjectivity}`);
         // newTableDataSubConf.text(subConPer.toFixed(2) + "%");
 
-        var newData = newTableRow.append(newTableHeight, newTableDataTrigWord, newTableDataSyn, newTableDataPol, newTableDataScore, newTableDataSub);
-        $("tbody").prepend(newData);
+        // console.log(sv.score);
+
+        var newData = newTableRow.append(newTableHeight, newTableDataTrigWord, newTableDataSyn, newTableDataPol, newTableDataScore);
+        $("tbody").html(newData);
 
         // Change the background color of the text with data depending on if it is positive, neutral, or negative
         if (sv.analysis.polarity === "positive") {
             $("#analysis-" + num).css("background", "green");
-            $("#emoji-" + sv.text).addClass("twa twa-smiley");
+            $(".emoji").addClass("twa twa-smiley");
         } else if (sv.analysis.polarity === "neutral") {
             $("#analysis-" + num).css("background", "yellow")
-            $("#emoji-" + sv.text).addClass("twa twa-expressionless");
+            $(".emoji").addClass("twa twa-expressionless");
         } else if (sv.analysis.polarity === "negative") {
             $("#analysis-" + num).css("background", "red")
-            $("#emoji-" + sv.text).addClass("twa twa-open-mouth");
+            $(".emoji").addClass("twa twa-open-mouth");
         }
 
         num++;

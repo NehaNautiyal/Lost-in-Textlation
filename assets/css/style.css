@@ -10,7 +10,8 @@ body{
 
 h1 {
     color: white;
-    font-family: 'Monoton', cursive;
+    font-family: 'Source Code Pro', monospace;
+    font-weight: bolder;
 }
 
 .container  {
@@ -63,8 +64,8 @@ p{
     font-size: large;
 }
 
-.btn-primary {
-    background: purple;
+button:hover {
+    background: #f9bf17;
 }
 
 footer{

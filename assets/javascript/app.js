@@ -206,7 +206,7 @@ $(document).ready(function () {
         newTableDataPol.text(`${polConPer.toFixed(2)}% confident it's ${sv.analysis.polarity} `);
         newTableDataScore.text(sv.analysis.score);
         newTableDataEmoji.addClass("emoji");
-        newTableDataPol.append(newTableDataEmoji);
+        newTableDataScore.append(newTableDataEmoji);
         // newTableDataPolConf.text(polConPer.toFixed(2) + "%");
         // newTableDataSub.text(`${subConPer.toFixed(2)}% ${sv.analysis.subjectivity}`);
         // newTableDataSubConf.text(subConPer.toFixed(2) + "%");
@@ -222,10 +222,10 @@ $(document).ready(function () {
             $(".emoji").addClass("twa twa-smiley");
         } else if (sv.analysis.polarity === "neutral") {
             $("#analysis-" + num).css("background", "#4c96d7")
-            $(".emoji").addClass("twa twa-expressionless");
+            $(".emoji").addClass("twa twa-neutral-face");
         } else if (sv.analysis.polarity === "negative") {
             $("#analysis-" + num).css("background", "#d74c96")
-            $(".emoji").addClass("twa twa-open-mouth");
+            $(".emoji").addClass("twa twa-angry");
         }
 
         num++;
@@ -251,20 +251,31 @@ $(document).ready(function () {
             state.analysis.syn = [];
             state.analysis.ant = [];
 
-            for (let i = 0; i < response[0].meta.syns[0].length; i++) {
-                var synonymsFromMerriam = response[0].meta.syns[0][i];
-                state.analysis.syn.push(synonymsFromMerriam);
-                // console.log(synonymsFromMerriam);
-                // console.log(`State.analysis.syn: ${state.analysis.syn}`);
+            if (response[0].meta.syns[0].length !== 0) {
+                for (let m = 0; m < response[0].meta.syns[0].length; m++) {
+                    var synonymsFromMerriam = response[0].meta.syns[0][m];
+                    state.analysis.syn.push(synonymsFromMerriam);
+                    console.log(`Synonyms from MerriamWebster: ${synonymsFromMerriam}`);
+                    // console.log(`State.analysis.syn: ${state.analysis.syn}`);
+                    $(".syn").text(state.analysis.syn.join(" "));
+                }
+
+            } else {
+                $(".syn").text("No synonyms listed");
             }
 
-            for (let l = 0; l < response[0].meta.ants[0].length; l++) {
-                var antonymsFromMerriam = response[0].meta.ants[0][l];
-                state.analysis.ant.push(antonymsFromMerriam);
+            if (response[0].meta.ants[0].length !== 0) {
+                for (let l = 0; l < response[0].meta.ants[0].length; l++) {
+                    var antonymsFromMerriam = response[0].meta.ants[0][l];
+                    state.analysis.ant.push(antonymsFromMerriam);
+                    console.log(`Antonyms from MerriamWebster: ${antonymsFromMerriam}`)
+                }
+                $(".ant").text(state.analysis.ant.join(" "));
+            } else if (response[0].meta.ants.length === 0){
+                $(".ant").text("No antonyms listed");
             }
 
-            $("#syn-" + word).text(state.analysis.syn.join(" "));
-            $("#ant-" + word).text(state.analysis.ant.join(" "));
+
 
             // Update this in the database
             // usersRef.child(userId).update({

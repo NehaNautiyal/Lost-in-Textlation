@@ -15,7 +15,6 @@ $(document).ready(function () {
     var connectionsRef = database.ref("/connections");
     var connectedRef = database.ref(".info/connected");
     var usersRef = database.ref("/users");
-    var stateRef = database.ref("/state");
 
     // When the client's connection state changes...
     connectedRef.on("value", function (snap) {
@@ -37,7 +36,8 @@ $(document).ready(function () {
                     positiveWords: "",
                     negativeWords: "",
 
-                    syn: "None requested"
+                    syn: "None requested",
+                    ant: "None requested"
                 }
             });
 
@@ -70,90 +70,92 @@ $(document).ready(function () {
             score: "",
             positiveWords: "",
             negativeWords: "",
-            syn: []
+            syn: [],
+            ant: []
         }
     }
 
     // When you click the submit button
     // $("#submit-btn").on("click", function (e) {
-    $("#submit-text").keypress(function(e) {   
-         
-    if (event.which === 32 ) {
-            
-        
-        analyze = $("#submit-text").val().trim();
-
-        var sentimood = new Sentimood();
-        var analysis = sentimood.analyze(analyze);
-        var positivity = sentimood.positivity(analyze);
-        var negativity = sentimood.negativity(analyze);
-        var score = analysis.score
-        var positiveWords = positivity.words
-        var negativeWords = negativity.words
-        console.log(analysis);
-        console.log(score);
-        console.log(positiveWords); //is an array
-        console.log(negativeWords);
+    $("#submit-text").keypress(function (event) {
+        //  event.preventDefault();
+        if (event.which === 32 || event.which === 13) {
 
 
-        var apiURL = "https://cors-anywhere.herokuapp.com/https://api.aylien.com/api/v1/sentiment";
+            analyze = $("#submit-text").val().trim();
 
-        $.ajax({
-            url: apiURL,
-            headers: {
-                "X-AYLIEN-TextAPI-Application-Key": "61ffcd895f4e02c544e7bb1732b494bb",
-                "X-AYLIEN-TextAPI-Application-Id": "dd4fff67"
-            },
-            data: {
-                text: analyze
-            },
-            // headers: { "HeaderName": "fd5385f172d340618f77121d772e59a8" },
-            async: true,
-            crossDomain: true,
-            dataType: "json",
-            contentType: "application/json",
-            method: "GET"
-        }).then(function (response) {
-            console.log(response);
-            polarity = response.polarity;
-            subjectivity = response.subjectivity;
-            polarity_confidence = response.polarity_confidence;
-            subjectivity_confidence = response.subjectivity_confidence;
+            var sentimood = new Sentimood();
+            var analysis = sentimood.analyze(analyze);
+            var positivity = sentimood.positivity(analyze);
+            var negativity = sentimood.negativity(analyze);
+            var score = analysis.score
+            var positiveWords = positivity.words
+            var negativeWords = negativity.words
+            console.log(analysis);
+            console.log(score);
+            console.log(positiveWords); //is an array
+            console.log(negativeWords);
 
-            // Update this in the database
-            usersRef.child(userId).update({
-                id: userId,
-                text: analyze,
-                analysis: {
-                    polarity: polarity,
-                    polarity_confidence: polarity_confidence,
-                    subjectivity: subjectivity,
 
-                    subjectivity_confidence: subjectivity_confidence,
-                    score: score,
-                    syn: "None requested",
-                    positiveWords: positiveWords,
-                    negativeWords: negativeWords
-                }
+            var apiURL = "https://cors-anywhere.herokuapp.com/https://api.aylien.com/api/v1/sentiment";
+
+            $.ajax({
+                url: apiURL,
+                headers: {
+                    "X-AYLIEN-TextAPI-Application-Key": "61ffcd895f4e02c544e7bb1732b494bb",
+                    "X-AYLIEN-TextAPI-Application-Id": "dd4fff67"
+                },
+                data: {
+                    text: analyze
+                },
+                // headers: { "HeaderName": "fd5385f172d340618f77121d772e59a8" },
+                async: true,
+                crossDomain: true,
+                dataType: "json",
+                contentType: "application/json",
+                method: "GET"
+            }).then(function (response) {
+                console.log(response);
+                polarity = response.polarity;
+                subjectivity = response.subjectivity;
+                polarity_confidence = response.polarity_confidence;
+                subjectivity_confidence = response.subjectivity_confidence;
+
+                // Update this in the database
+                usersRef.child(userId).update({
+                    id: userId,
+                    text: analyze,
+                    analysis: {
+                        polarity: polarity,
+                        polarity_confidence: polarity_confidence,
+                        subjectivity: subjectivity,
+
+                        subjectivity_confidence: subjectivity_confidence,
+                        score: score,
+                        syn: "None requested",
+                        ant: "None requested",
+                        positiveWords: positiveWords,
+                        negativeWords: negativeWords
+                    }
+                });
+
+                // Update the local variables
+                state.text = analyze;
+                state.analysis.polarity = polarity;
+                state.analysis.polarity_confidence = polarity_confidence;
+                state.analysis.subjectivity = subjectivity;
+                state.analysis.subjectivity_confidence = subjectivity_confidence;
+
+                state.analysis.score = score
+                state.analysis.positiveWords = positiveWords;
+                state.analysis.negativeWords = negativeWords;
+
             });
+            // Empty the text field
+            // $("#submit-text").val("");
+        }
 
-            // Update the local variables
-            state.text = analyze;
-            state.analysis.polarity = polarity;
-            state.analysis.polarity_confidence = polarity_confidence;
-            state.analysis.subjectivity = subjectivity;
-            state.analysis.subjectivity_confidence = subjectivity_confidence;
 
-            state.analysis.score = score
-            state.analysis.positiveWords = positiveWords;
-            state.analysis.negativeWords = negativeWords;
-
-        });
-        // Empty the text field
-        $("#submit-text").val("");
-    }
-
-        
     });
 
     // If anything changes in the usersRef in the firebase, that needs to be updated
@@ -167,11 +169,13 @@ $(document).ready(function () {
         var newTableRow = $("<tr>").attr("id", "analysis-" + num);
         var newTableDataTrigWord = $("<td>"); //Trigger Word
         var newTableDataSyn = $("<td>"); //Synonyms
-        var newTableDataScore = $("<i>") // Emoji as icon
+        var newTableDataAnt = $("<td>"); //Antonyms
+        var newTableDataEmoji = $("<i>") // Emoji as icon
+        var newTableDataScore = $("<td>") // Polarity Score
         var newTableDataPol = $("<td>"); //Polarity
         // var newTableDataPolConf = $("<td>"); //Polarity Confidence
-        var newTableDataSub = $("<td>"); // Subjectivity
-        var newTableDataSubConf = $("<td>"); //subjectivity confidence
+        // var newTableDataSub = $("<td>"); // Subjectivity
+        // var newTableDataSubConf = $("<td>"); //subjectivity confidence
 
         //Need a for loop to make a new button for every trigger word
         for (let j = 0; j < sv.analysis.positiveWords.length - 1; j++) {
@@ -181,7 +185,8 @@ $(document).ready(function () {
             console.log(sv.analysis.positiveWords[j]);
             newTableDataTrigWord.prepend(b);
             newTableDataSyn.text(sv.analysis.syn).addClass("syn").attr("id", "syn-" + sv.analysis.positiveWords[j]);
-            
+            newTableDataAnt.text(sv.analysis.ant).addClass("ant").attr("id", "ant-" + sv.analysis.positiveWords[j]);
+
         }
 
         for (let k = 0; k < sv.analysis.negativeWords.length - 1; k++) {
@@ -190,32 +195,37 @@ $(document).ready(function () {
             b.addClass("triggerWord").attr("id", sv.analysis.negativeWords[k]).text(sv.analysis.negativeWords[k]);
             newTableDataTrigWord.prepend(b);
             newTableDataSyn.text(sv.analysis.syn).addClass("syn").attr("id", "syn-" + sv.analysis.negativeWords[k]);
-            
+            newTableDataAnt.text(sv.analysis.ant).addClass("ant").attr("id", "ant-" + sv.analysis.negativeWords[k]);
+
         }
 
         var polConPer = sv.analysis.polarity_confidence * 100;
-        var subConPer = sv.analysis.subjectivity_confidence * 100;
+        // var subConPer = sv.analysis.subjectivity_confidence * 100;
 
-        newTableHeight.append(sv.text);        
-        newTableDataPol.text(`${polConPer.toFixed(2)}% ${sv.analysis.polarity}`);
-        newTableDataScore.attr("id", "emoji-" + sv.text);
+        newTableHeight.append(sv.text);
+        newTableDataPol.text(`${polConPer.toFixed(2)}% confident it's ${sv.analysis.polarity} `);
+        newTableDataScore.text(sv.analysis.score);
+        newTableDataEmoji.addClass("emoji");
+        newTableDataPol.append(newTableDataEmoji);
         // newTableDataPolConf.text(polConPer.toFixed(2) + "%");
-        newTableDataSub.text(`${subConPer.toFixed(2)}% ${sv.analysis.subjectivity}`);
+        // newTableDataSub.text(`${subConPer.toFixed(2)}% ${sv.analysis.subjectivity}`);
         // newTableDataSubConf.text(subConPer.toFixed(2) + "%");
 
-        var newData = newTableRow.append(newTableHeight, newTableDataTrigWord, newTableDataSyn, newTableDataPol, newTableDataScore, newTableDataSub);
-        $("tbody").prepend(newData);
+        // console.log(sv.score);
+
+        var newData = newTableRow.append(newTableHeight, newTableDataTrigWord, newTableDataSyn, newTableDataAnt, newTableDataPol, newTableDataScore);
+        $("tbody").html(newData);
 
         // Change the background color of the text with data depending on if it is positive, neutral, or negative
         if (sv.analysis.polarity === "positive") {
-            $("#analysis-" + num).css("background", "green");
-            $("#emoji-" + sv.text).addClass("twa twa-smiley");
+            $("#analysis-" + num).css("background", "#96d74c");
+            $(".emoji").addClass("twa twa-smiley");
         } else if (sv.analysis.polarity === "neutral") {
-            $("#analysis-" + num).css("background", "yellow")
-            $("#emoji-" + sv.text).addClass("twa twa-expressionless");
+            $("#analysis-" + num).css("background", "#4c96d7")
+            $(".emoji").addClass("twa twa-expressionless");
         } else if (sv.analysis.polarity === "negative") {
-            $("#analysis-" + num).css("background", "red")
-            $("#emoji-" + sv.text).addClass("twa twa-open-mouth");
+            $("#analysis-" + num).css("background", "#d74c96")
+            $(".emoji").addClass("twa twa-open-mouth");
         }
 
         num++;
@@ -239,16 +249,23 @@ $(document).ready(function () {
 
             //Reset the local state.analysis.syn array
             state.analysis.syn = [];
+            state.analysis.ant = [];
 
             for (let i = 0; i < response[0].meta.syns[0].length; i++) {
                 var synonymsFromMerriam = response[0].meta.syns[0][i];
                 state.analysis.syn.push(synonymsFromMerriam);
-                console.log(synonymsFromMerriam);
-                console.log(`State.analysis.syn: ${state.analysis.syn}`);
+                // console.log(synonymsFromMerriam);
+                // console.log(`State.analysis.syn: ${state.analysis.syn}`);
             }
 
-            // $("#syn-" + num).text(state.analysis.syn.join(" "));
-            $("#syn-"+ word).text(state.analysis.syn.join(" "));
+            for (let l = 0; l < response[0].meta.ants[0].length; l++) {
+                var antonymsFromMerriam = response[0].meta.ants[0][l];
+                state.analysis.ant.push(antonymsFromMerriam);
+            }
+
+            $("#syn-" + word).text(state.analysis.syn.join(" "));
+            $("#ant-" + word).text(state.analysis.ant.join(" "));
+
             // Update this in the database
             // usersRef.child(userId).update({
             //     id: userId,

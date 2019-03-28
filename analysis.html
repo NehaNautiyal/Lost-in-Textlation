@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Lost in Textlation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Google Fonts Reference -->
+    <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+    <!-- Bootstrap Reference -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- Local CSS Reference -->
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
+    <!-- Emoji Reference -->
+    <link rel="stylesheet" href="assets/css/twemoji-awesome.css">
+
+
+</head>
+
+<body>
+    <div class="container">
+        <div id="fb-root"></div>
+        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script>
+
+        <h1>Lost in Textlation...</h1>
+        <a href="https://twitter.com/intent/tweet?button_hashtag=lostintextlation&ref_src=twsrc%5Etfw" class="twitter-hashtag-button"
+            data-show-count="false">Tweet #lostintextlation</a>
+
+        <div class="button" data-href="https://nehanautiyal.github.io/Project-1" data-layout="button"
+            data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnehanautiyal.github.io%2FProject-1&ampsrc=sdkpreparse"
+                class="fb-xfbml-parse-ignore">Share</a></div>
+
+        <div class="form-group">
+            <input class="form-control" for="text-input" id="submit-text" placeholder="Type your text for analysis or paste your text here"
+                type="text">
+        </div>
+        <!-- <button class="btn btn-primary" id="submit-btn">Check Tone</button> -->
+
+
+        <div class="row">
+            <div class="card col-lg-12 pl-0 pr-0">
+                <div class="bg-dark card-header text-light">
+                    Summary of Text Analysis
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Text</th>
+
+                                <th scope="col">Key Words</th>
+                                <th scope="col">Synonyms</th>
+                                <th scope="col">Antonyms</th>
+                                <th scope="col">Sentiment</th>
+                                <th scope="col">Sentiment Score</th>
+
+                                <!-- <th scope="col">Polarity Confidence</th> -->
+                                <!-- <th scope="col">Subjectivity</th> -->
+                                <!-- <th scope="col">Subjectivity Confidence</th> -->
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <section>
+            <div id="analysis"></div>
+        </section>
+
+
+
+
+
+    </div>
+   
+    <!-- Twitter Button     -->
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <!-- Sentimood Reference -->
+    <script type="text/javascript" src="assets/javascript/sentimood.js"></script>
+    <!-- Firebase Reference -->
+    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+    <!-- jQuery Reference -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Local Javascript Reference -->
+    <script src="assets/javascript/app.js"></script>
+</body>
+
+</html>

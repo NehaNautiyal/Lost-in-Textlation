@@ -5,6 +5,7 @@ body{
     background-repeat: no-repeat;
     width: 100%;
     margin: auto;
+    font-family: 'Source Code Pro', monospace;
 }
 
 h1 {

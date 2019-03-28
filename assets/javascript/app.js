@@ -182,7 +182,6 @@ $(document).ready(function () {
             //Make the Trigger words into buttons to find the synonym
             var b = $("<button>");
             b.addClass("triggerWord").attr("id", sv.analysis.positiveWords[j]).text(sv.analysis.positiveWords[j]);
-            console.log(sv.analysis.positiveWords[j]);
             newTableDataTrigWord.prepend(b);
             newTableDataSyn.text(sv.analysis.syn).addClass("syn").attr("id", "syn-" + sv.analysis.positiveWords[j]);
             newTableDataAnt.text(sv.analysis.ant).addClass("ant").attr("id", "ant-" + sv.analysis.positiveWords[j]);
@@ -251,20 +250,32 @@ $(document).ready(function () {
             state.analysis.syn = [];
             state.analysis.ant = [];
 
-            for (let i = 0; i < response[0].meta.syns[0].length; i++) {
-                var synonymsFromMerriam = response[0].meta.syns[0][i];
-                state.analysis.syn.push(synonymsFromMerriam);
-                // console.log(synonymsFromMerriam);
-                // console.log(`State.analysis.syn: ${state.analysis.syn}`);
+            if (response[0].meta.syns[0].length !== 0) {
+                for (let m = 0; m < response[0].meta.syns[0].length; m++) {
+                    var synonymsFromMerriam = response[0].meta.syns[0][m];
+                    state.analysis.syn.push(synonymsFromMerriam);
+                    console.log(`Synonyms from MerriamWebster: ${synonymsFromMerriam}`);
+                    // console.log(`State.analysis.syn: ${state.analysis.syn}`);
+                    $(".syn").text(state.analysis.syn.join(" "));
+                }
+
+            } else {
+                $(".syn").text("No synonyms listed");
             }
 
-            for (let l = 0; l < response[0].meta.ants[0].length; l++) {
-                var antonymsFromMerriam = response[0].meta.ants[0][l];
-                state.analysis.ant.push(antonymsFromMerriam);
+            if (response[0].meta.ants[0].length !== 0) {
+                for (let l = 0; l < response[0].meta.ants[0].length; l++) {
+                    var antonymsFromMerriam = response[0].meta.ants[0][l];
+                    state.analysis.ant.push(antonymsFromMerriam);
+                    console.log(`Antonyms from MerriamWebster: ${antonymsFromMerriam}`)
+                }
+                $(".ant").text(state.analysis.ant.join(" "));
+            } else if (response[0].meta.ants.length === 0){
+                $(".ant").text("No antonyms listed");
             }
 
-            $("#syn-" + word).text(state.analysis.syn.join(" "));
-            $("#ant-" + word).text(state.analysis.ant.join(" "));
+
+
 
             // Update this in the database
             // usersRef.child(userId).update({

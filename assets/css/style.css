@@ -1,7 +1,7 @@
 body{
     background: silver;
     text-align: center;
-    /* background-image: url("../images/smiley.jpg"); */
+    background-image: url("../images/gray-background-1436871274B7v.jpg");
     background-repeat: no-repeat;
     width: 100%;
     margin: auto;
@@ -9,7 +9,7 @@ body{
 }
 
 h1 {
-    color: white;
+    color: #083b66;
     font-family: 'Source Code Pro', monospace;
     font-weight: bolder;
 }

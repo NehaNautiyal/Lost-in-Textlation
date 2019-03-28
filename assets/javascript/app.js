@@ -205,7 +205,7 @@ $(document).ready(function () {
         newTableDataPol.text(`${polConPer.toFixed(2)}% confident it's ${sv.analysis.polarity} `);
         newTableDataScore.text(sv.analysis.score);
         newTableDataEmoji.addClass("emoji");
-        newTableDataPol.append(newTableDataEmoji);
+        newTableDataScore.append(newTableDataEmoji);
         // newTableDataPolConf.text(polConPer.toFixed(2) + "%");
         // newTableDataSub.text(`${subConPer.toFixed(2)}% ${sv.analysis.subjectivity}`);
         // newTableDataSubConf.text(subConPer.toFixed(2) + "%");
@@ -221,10 +221,10 @@ $(document).ready(function () {
             $(".emoji").addClass("twa twa-smiley");
         } else if (sv.analysis.polarity === "neutral") {
             $("#analysis-" + num).css("background", "#4c96d7")
-            $(".emoji").addClass("twa twa-expressionless");
+            $(".emoji").addClass("twa twa-neutral-face");
         } else if (sv.analysis.polarity === "negative") {
             $("#analysis-" + num).css("background", "#d74c96")
-            $(".emoji").addClass("twa twa-open-mouth");
+            $(".emoji").addClass("twa twa-angry");
         }
 
         num++;
@@ -273,9 +273,6 @@ $(document).ready(function () {
             } else if (response[0].meta.ants.length === 0){
                 $(".ant").text("No antonyms listed");
             }
-
-
-
 
             // Update this in the database
             // usersRef.child(userId).update({

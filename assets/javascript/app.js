@@ -182,7 +182,6 @@ $(document).ready(function () {
             //Make the Trigger words into buttons to find the synonym
             var b = $("<button>");
             b.addClass("triggerWord").attr("id", sv.analysis.positiveWords[j]).text(sv.analysis.positiveWords[j]);
-            console.log(sv.analysis.positiveWords[j]);
             newTableDataTrigWord.prepend(b);
             newTableDataSyn.text(sv.analysis.syn).addClass("syn").attr("id", "syn-" + sv.analysis.positiveWords[j]);
             newTableDataAnt.text(sv.analysis.ant).addClass("ant").attr("id", "ant-" + sv.analysis.positiveWords[j]);
@@ -274,8 +273,6 @@ $(document).ready(function () {
             } else if (response[0].meta.ants.length === 0){
                 $(".ant").text("No antonyms listed");
             }
-
-
 
             // Update this in the database
             // usersRef.child(userId).update({

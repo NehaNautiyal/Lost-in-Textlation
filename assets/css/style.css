@@ -1,16 +1,35 @@
 body{
-    background: silver;
+    background: #ededed;
     text-align: center;
-    /* background-image: url("../images/smiley.jpg"); */
-    background-repeat: no-repeat;
+    /* background-image: url("/assets/images/gray-background.jpg"); */
+    /* background-repeat: no-repeat; */
     width: 100%;
     margin: auto;
     font-family: 'Source Code Pro', monospace;
+}
+.gif-container  {
+    background-image: url("../images/silver-gif-bg2.gif");
+    background-size:cover;
+    background-repeat: repeat-y;
+    background-attachment: fixed;
+    height:100%;
+    width:100%;
 }
 
 h1 {
     color: white;
     font-family: 'Monoton', cursive;
+}
+/* .image-text {
+    font-family: 'Monoton', cursive;
+    float: left;
+} */
+
+p {
+    padding-top: 25px;
+    padding-bottom: 25px;
+    border-radius: 8px;
+    border: 3px solid #083b66;
 }
 
 .container  {
@@ -18,6 +37,7 @@ h1 {
     margin: auto;
     padding-top: 20 px;
     font-size: 100%;
+    
 }
 .container-image    {
     object-fit: cover;
@@ -25,6 +45,10 @@ h1 {
     margin-left: auto;
     padding-bottom: 20px;
 }
+/* .logo   {
+    border: 3px solid #083b66;
+    border-radius: 8px; */
+
 @keyframes example  {
         from {bottom: 0px;}
         to {bottom: 760px;}
@@ -67,7 +91,7 @@ p{
     background: purple;
 }
 
-footer{
+.footer{
     position: absolute;
 }
    

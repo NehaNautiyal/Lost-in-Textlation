@@ -7,8 +7,6 @@
     <title>Lost in Textlation</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="icon" href="https://nehanautiyal.github.io/Project-1/assets/images/LIT-2.png"
-        type="image/x-icon">
     <!-- Google Fonts Reference -->
     <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
@@ -19,7 +17,6 @@
     <!-- Emoji Reference -->
     <link rel="stylesheet" href="assets/css/twemoji-awesome.css">
 
-
 </head>
 
 <body>
@@ -27,8 +24,10 @@
         <div id="fb-root"></div>
         <script async defer crossorigin="anonymous"
             src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script>
-
-        <h1>Lost in Textlation...</h1>
+            <div class="logo">
+                    <img src="assets/images/LIT-2.png" width=350px
+                            height=350px></a>
+            <!-- <h1>Lost in Textlation...</h1> -->
         
         <div class="row justify-content-center">
             <a href="https://twitter.com/intent/tweet?button_hashtag=lostintextlation&ref_src=twsrc%5Etfw"
@@ -39,9 +38,10 @@
                 allowTransparency="true"></iframe>
         </div>
 
-            <textarea class="autoExpand" rows='1' data-min-rows='1' for="text-input" id="submit-text"
-                placeholder="Type your text for analysis or paste your text here"></textarea>
-        
+        <div class="form-group">
+            <input class="form-control" for="text-input" id="submit-text"
+                placeholder="Type your text for analysis or paste your text here" type="text">
+        </div>
         <!-- <button class="btn btn-primary" id="submit-btn">Check Tone</button> -->
 
         <div class="row">
@@ -81,7 +81,6 @@
 
 
 
-
     </div>
 
     <!-- Twitter Button     -->
@@ -97,3 +96,4 @@
 </body>
 
 </html>
+

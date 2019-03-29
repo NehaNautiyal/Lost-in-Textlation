@@ -1,8 +1,8 @@
 body{
-    background: silver;
+    /* background: silver; */
     text-align: center;
-    /* background-image: url("../images/gray-background-1436871274B7v.jpg"); */
-    background-repeat: no-repeat;
+    background-image: url("../images/Backgroundtest.png");
+    /* background-repeat: no-repeat; */
     width: 100%;
     height: 100%;
     margin: auto;
@@ -15,25 +15,17 @@ h1 {
     font-weight: bolder;
 }
 
-textarea{  
-    display: block;
-    box-sizing: padding-box;
-    overflow: hidden;
-    font-family: 'Source Code Pro', monospace;
-    padding: 10px;
-    width: 75vw;
-    font-size: 14px;
-    margin: 10px auto;
-    border-radius: 6px;
-    box-shadow: 2px 2px 8px rgba(black, .3);
-    border: solid yellow 2px;
-  }
-
 .container  {
     border: 960 px solid white;
     margin: auto;
     padding-top: 20 px;
     font-size: 100%;
+}
+.display-3 {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    font-family: 'Source Code Pro', monospace;
 }
 .container-image    {
     object-fit: cover;
@@ -58,10 +50,10 @@ textarea{
     /* background: silver; */
 }
 td {
-    vertical-align: middle
+    vertical-align: top
 }
 .table td, .table, .table th {
-    vertical-align: middle
+    vertical-align: top
 }
 #twitter-widget-0 {
     margin-right: 12px;
@@ -91,10 +83,19 @@ i {
     margin: 0px;
 }
 p{
-    font-family: 'VT323', monospace;
+    font-family: 'Source Code Pro', monospace;
     color: #083b66;
     font-weight: bold;
     font-size: large;
+    margin-bottom: 0px;
+    margin-top: -32px;
+    background-color: #EEF2F3;
+    border-style: solid;
+    width: 80vw;
+    margin: auto;
+    text-align: left;
+    padding: 10px;
+    border-radius: 25px;
 }
 
 button:hover {
@@ -104,13 +105,144 @@ button:hover {
 footer{
     position: absolute;
 }
-@media screen and (max-height: 700px) {
+@media screen and (max-width: 768px) {
+    .card-body {
+        font-size: 13px;
+    }
+#submit-text {
+    font-size: 14px;
+}
+}
+@media screen and (max-height: 768px) {
+    p {
+        font-size: 16px;
+    }
+    .lit {
+        padding-top: 32px;
+        opacity: 1;
+        transition: .5s ease;
+        backface-visibility: hidden;
+    }
+
+    .middle {
+        transition: .5s ease;
+        opacity: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform:
+        translate(-50%, -50%);
+        text-align: center;
+    }
+    .lit:hover {
+    opacity: 0.3;
+}
+    .middle:hover {
+    opacity: 1;
+}
+.text {
+    background-color: yellow;
+    color: white;
+    font-size: 16px;
+    padding: 16px 32px;
+}
+}
+
+
+@media screen and (max-height: 699px) {
     @keyframes example  {
         from {bottom: 0px;}
-        to {bottom: 725px;}
+        to {bottom: 700px;}
     }
     @keyframes example1  {
             from {bottom: 0px;}
-            to {bottom: 725px;}
+            to {bottom: 700px;}
 }
+p {
+    font-size: 16px;
+}
+.lit {
+    padding-top: 32px;
+        opacity: 1;
+        transition: .5s ease;
+        backface-visibility: hidden;
+    }
+
+    .middle {
+        transition: .5s ease;
+        opacity: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform:
+        translate(-50%, -50%);
+        text-align: center;
+    }
+    .lit:hover {
+    opacity: 0.3;
+}
+    .middle:hover {
+    opacity: 1;
+}
+.text {
+    background-color: yellow;
+    color: white;
+    font-size: 16px;
+    padding: 16px 32px;
+}
+}
+
+@media screen and (max-height: 380px) {
+    @keyframes example  {
+        from {bottom: 0px;}
+        to {bottom: 380px;}
+    }
+    @keyframes example1  {
+            from {bottom: 0px;}
+            to {bottom: 380px;}
+}
+p {
+    font-size: 14px;
+}
+.lit {
+    width: 270px;
+    height: 220px;
+        padding-top: 32px;
+        opacity: 1;
+        transition: .5s ease;
+        backface-visibility: hidden;
+    }
+
+    .middle {
+        transition: .5s ease;
+        opacity: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform:
+        translate(-50%, -50%);
+        text-align: center;
+    }
+    .lit:hover {
+    opacity: 0.3;
+}
+    .middle:hover {
+    opacity: 1;
+}
+.text {
+    background-color: yellow;
+    color: white;
+    font-size: 16px;
+    padding: 16px 32px;
+}
+
+}
+.card-body {
+    font-size: 13px;
+}
+#submit-text {
+    font-size: 14px;
 }

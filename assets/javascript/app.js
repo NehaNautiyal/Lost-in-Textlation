@@ -44,6 +44,8 @@ $(document).ready(function () {
             //Get a unique key for each window that connects
             userId = profile.key;
 
+            console.log(snap.numChildren);
+
             // Remove user from the connection list when they disconnect, along with all of their data
             connectionsRef.onDisconnect().remove();
             usersRef.onDisconnect().remove();
@@ -75,8 +77,9 @@ $(document).ready(function () {
         }
     }
 
-    // When you click the submit button
-    // $("#submit-btn").on("click", function (e) {
+
+
+    // When you type in the submit-text area
     $("#submit-text").keypress(function (event) {
         //  event.preventDefault();
         if (event.which === 32 || event.which === 13) {
@@ -154,9 +157,95 @@ $(document).ready(function () {
             // Empty the text field
             // $("#submit-text").val("");
         }
-
-
     });
+
+    //setup before functions
+    var typingTimer;                //timer identifier
+    var doneTypingInterval = 1000;
+
+    //on keyup, start the countdown
+    $("#submit-text").on('keyup', function () {
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(doneTyping, doneTypingInterval);
+    });
+
+    //on keydown, clear the countdown 
+    $("#submit-text").on('keydown', function () {
+        clearTimeout(typingTimer);
+    });
+
+    //user is "finished typing," do something
+    function doneTyping() {
+        analyze = $("#submit-text").val().trim();
+
+        var sentimood = new Sentimood();
+        var analysis = sentimood.analyze(analyze);
+        var positivity = sentimood.positivity(analyze);
+        var negativity = sentimood.negativity(analyze);
+        var score = analysis.score
+        var positiveWords = positivity.words
+        var negativeWords = negativity.words
+        console.log(analysis);
+        console.log(score);
+        console.log(positiveWords); //is an array
+        console.log(negativeWords);
+
+
+        var apiURL = "https://cors-anywhere.herokuapp.com/https://api.aylien.com/api/v1/sentiment";
+
+        $.ajax({
+            url: apiURL,
+            headers: {
+                "X-AYLIEN-TextAPI-Application-Key": "61ffcd895f4e02c544e7bb1732b494bb",
+                "X-AYLIEN-TextAPI-Application-Id": "dd4fff67"
+            },
+            data: {
+                text: analyze
+            },
+            // headers: { "HeaderName": "fd5385f172d340618f77121d772e59a8" },
+            async: true,
+            crossDomain: true,
+            dataType: "json",
+            contentType: "application/json",
+            method: "GET"
+        }).then(function (response) {
+            console.log(response);
+            polarity = response.polarity;
+            subjectivity = response.subjectivity;
+            polarity_confidence = response.polarity_confidence;
+            subjectivity_confidence = response.subjectivity_confidence;
+
+            // Update this in the database
+            usersRef.child(userId).update({
+                id: userId,
+                text: analyze,
+                analysis: {
+                    polarity: polarity,
+                    polarity_confidence: polarity_confidence,
+                    subjectivity: subjectivity,
+
+                    subjectivity_confidence: subjectivity_confidence,
+                    score: score,
+                    syn: "None requested",
+                    ant: "None requested",
+                    positiveWords: positiveWords,
+                    negativeWords: negativeWords
+                }
+            });
+
+            // Update the local variables
+            state.text = analyze;
+            state.analysis.polarity = polarity;
+            state.analysis.polarity_confidence = polarity_confidence;
+            state.analysis.subjectivity = subjectivity;
+            state.analysis.subjectivity_confidence = subjectivity_confidence;
+
+            state.analysis.score = score
+            state.analysis.positiveWords = positiveWords;
+            state.analysis.negativeWords = negativeWords;
+
+        });
+    }
 
     // If anything changes in the usersRef in the firebase, that needs to be updated
     usersRef.on("child_changed", function (snapshot) {
@@ -233,6 +322,24 @@ $(document).ready(function () {
         console.log("The read failed: " + errorObject.code);
     });
 
+    //_______________________________________________________________________
+    //Function for dynamically expanding the textarea depending on the text
+
+    $(document)
+        .one('focus.autoExpand', 'textarea.autoExpand', function () {
+            var savedValue = this.value;
+            this.value = '';
+            this.baseScrollHeight = this.scrollHeight;
+            this.value = savedValue;
+        })
+        .on('input.autoExpand', 'textarea.autoExpand', function () {
+            var minRows = this.getAttribute('data-min-rows') | 0, rows;
+            this.rows = minRows;
+            rows = Math.ceil((this.scrollHeight - this.baseScrollHeight) / 22);
+            this.rows = minRows + rows;
+        });
+    //_______________________________________________________________________
+
     $(document).on("click", ".triggerWord", function () {
         var word = $(this).attr("id");
         console.log(word);
@@ -270,7 +377,7 @@ $(document).ready(function () {
                     console.log(`Antonyms from MerriamWebster: ${antonymsFromMerriam}`)
                 }
                 $(".ant").text(state.analysis.ant.join(" "));
-            } else if (response[0].meta.ants.length === 0){
+            } else if (response[0].meta.ants.length === 0) {
                 $(".ant").text("No antonyms listed");
             }
 

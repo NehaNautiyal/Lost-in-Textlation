@@ -1,13 +1,13 @@
 @charset "UTF-8";
 .twa {
   display: inline-block;
-  height: 1em;
-  width: 1em;
+  height: 28px;
+  width: 40px;
   margin: 0 .05em 0 .1em;
   vertical-align: -0.1em;
   background-repeat: no-repeat;
   background-position: center center;
-  background-size: 1em 1em; }
+  background-size: 40px 28px; }
 
 .twa-lg {
   height: 1.33em;

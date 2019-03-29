@@ -1,23 +1,94 @@
 body{
     background: silver;
     text-align: center;
-    /* background-image: url("../images/smiley.jpg"); */
+    /* background-image: url("../images/gray-background-1436871274B7v.jpg"); */
     background-repeat: no-repeat;
     width: 100%;
+    height: 100%;
     margin: auto;
     font-family: 'Source Code Pro', monospace;
 }
 
 h1 {
-    color: white;
-    font-family: 'Monoton', cursive;
+    color: #083b66;
+    font-family: 'Source Code Pro', monospace;
+    font-weight: bolder;
 }
+
+textarea{  
+    display: block;
+    box-sizing: padding-box;
+    overflow: hidden;
+    font-family: 'Source Code Pro', monospace;
+    padding: 10px;
+    width: 75vw;
+    font-size: 14px;
+    margin: 10px auto;
+    border-radius: 6px;
+    box-shadow: 2px 2px 8px rgba(black, .3);
+    border: solid yellow 2px;
+  }
 
 .container  {
     border: 960 px solid white;
     margin: auto;
     padding-top: 20 px;
     font-size: 100%;
+}
+.container-image    {
+    object-fit: cover;
+    margin-right: auto;
+    margin-left: auto;
+    padding-bottom: 20px;
+    height: 0px;
+}
+@keyframes example  {
+        from {bottom: 0px;}
+        to {bottom: 825px;}
+}
+.about  {
+    animation-name: example;
+   animation-duration: 8s;
+   animation-iteration-count: initial;
+   animation-fill-mode: forwards;
+   animation-delay: 3s;
+   height: 100vh;
+   position: relative;
+   margin: 0px;
+    /* background: silver; */
+}
+td {
+    vertical-align: middle
+}
+.table td, .table, .table th {
+    vertical-align: middle
+}
+#twitter-widget-0 {
+    margin-right: 12px;
+    margin-top: 8px;
+}
+i {
+    vertical-align: middle
+}
+@keyframes example1  {
+    from {bottom: 0px;}
+    to {bottom: 825px;}
+}
+.smiles {
+    height: 100vh;
+}
+.card-body {
+    overflow-x: auto;
+}
+.smiley  {
+    animation-name: example1;
+    animation-duration: 8s;
+    animation-iteration-count: initial;
+    animation-fill-mode: forwards;
+    animation-delay: 3s;
+    height: 100vh;
+    position: relative;
+    margin: 0px;
 }
 p{
     font-family: 'VT323', monospace;
@@ -26,12 +97,20 @@ p{
     font-size: large;
 }
 
-.btn-primary {
-    background: purple;
-}
-.jumbotron {
-    background: silver;
-
+button:hover {
+    background: #f9bf17;
 }
 
-    
+footer{
+    position: absolute;
+}
+@media screen and (max-height: 700px) {
+    @keyframes example  {
+        from {bottom: 0px;}
+        to {bottom: 725px;}
+    }
+    @keyframes example1  {
+            from {bottom: 0px;}
+            to {bottom: 725px;}
+}
+}

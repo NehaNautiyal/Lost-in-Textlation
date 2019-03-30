@@ -15,6 +15,20 @@ h1 {
     font-weight: bolder;
 }
 
+textarea{  
+    display: block;
+    box-sizing: padding-box;
+    overflow: hidden;
+    font-family: 'Source Code Pro', monospace;
+    padding: 10px;
+    width: 80vw;
+    font-size: 14px;
+    margin: 10px auto;
+    border-radius: 6px;
+    box-shadow: 2px 2px 8px rgba(black, .3);
+    border: solid yellow 2px;
+  }
+
 .container  {
     border: 960 px solid white;
     margin: auto;

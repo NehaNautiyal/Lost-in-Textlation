@@ -16,6 +16,7 @@ $(document).ready(function () {
     var connectedRef = database.ref(".info/connected");
     var usersRef = database.ref("/users");
 
+    //____________________________________________________________________________________________________________
     // When the client's connection state changes...
     connectedRef.on("value", function (snap) {
 
@@ -53,6 +54,7 @@ $(document).ready(function () {
         }
     });
 
+    //____________________________________________________________________________________________________________
     // Initialize some variables
     var analyze;
     var polarity;
@@ -78,7 +80,7 @@ $(document).ready(function () {
     }
 
 
-
+//____________________________________________________________________________________________________________
     // When you type in the submit-text area
     $("#submit-text").keypress(function (event) {
         //  event.preventDefault();
@@ -154,11 +156,10 @@ $(document).ready(function () {
                 state.analysis.negativeWords = negativeWords;
 
             });
-            // Empty the text field
-            // $("#submit-text").val("");
         }
     });
 
+    //____________________________________________________________________________________________________________
     //setup before functions
     var typingTimer;                //timer identifier
     var doneTypingInterval = 1000;
@@ -174,7 +175,8 @@ $(document).ready(function () {
         clearTimeout(typingTimer);
     });
 
-    //user is "finished typing," do something
+    //____________________________________________________________________________________________________________
+    //save function
     function doneTyping() {
         analyze = $("#submit-text").val().trim();
 
@@ -247,6 +249,7 @@ $(document).ready(function () {
         });
     }
 
+    //____________________________________________________________________________________________________________
     // If anything changes in the usersRef in the firebase, that needs to be updated
     usersRef.on("child_changed", function (snapshot) {
         var sv = snapshot.val();

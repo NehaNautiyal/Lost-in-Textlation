@@ -91,12 +91,6 @@ $(document).ready(function () {
             doneTyping();
         }
     });
-
-    //____________________________________________________________________________________________________________
-    function directions(){
-
-        showDirections = false;
-    }
     //____________________________________________________________________________________________________________
     //setup before functions
     var typingTimer;                //timer identifier
@@ -178,10 +172,8 @@ $(document).ready(function () {
             state.analysis.score = score
             state.analysis.positiveWords = positiveWords;
             state.analysis.negativeWords = negativeWords;
-
         });
     }
-
     //____________________________________________________________________________________________________________
     // If anything changes in the usersRef in the firebase, that needs to be updated in the HTML
     database.ref("/users").on("child_changed", function (snapshot) {
@@ -211,7 +203,10 @@ $(document).ready(function () {
         for (let j = 0; j < sv.analysis.positiveWords.length - 1; j++) {
             //Make the Trigger words into buttons to find the synonym
             var b = $("<button>");
-            b.addClass("triggerWord").attr("id", sv.analysis.positiveWords[j]).text(sv.analysis.positiveWords[j]);
+            b.addClass("triggerWord btn").attr({id: sv.analysis.positiveWords[j],
+                                            "data-toggle": "tooltip",
+                                            "data-placement": "bottom",
+                                            "title": "Display synonyms & antonyms"}).text(sv.analysis.positiveWords[j]);
             newTableDataTrigWord.prepend(b);
             newTableDataSyn.text(sv.analysis.syn).addClass("syn").attr({
                 id: "syn-" + sv.analysis.positiveWords[j],
@@ -227,7 +222,10 @@ $(document).ready(function () {
         for (let k = 0; k < sv.analysis.negativeWords.length - 1; k++) {
             //Make the Trigger words into buttons to find the synonym
             var b = $("<button>");
-            b.addClass("triggerWord").attr("id", sv.analysis.negativeWords[k]).text(sv.analysis.negativeWords[k]);
+            b.addClass("triggerWord btn").attr({id: sv.analysis.negativeWords[k],
+                                            "data-toggle": "tooltip",
+                                            "data-placement": "bottom",
+                                            "title": "Display synonyms & antonyms"}).text(sv.analysis.negativeWords[k]);
             newTableDataTrigWord.prepend(b);
             newTableDataSyn.text(sv.analysis.syn).addClass("syn").attr({
                 id: "syn-" + sv.analysis.negativeWords[k],
@@ -305,8 +303,11 @@ $(document).ready(function () {
                 for (let m = 0; m < response[0].meta.syns[0].length; m++) {
 
                     var p = $("<p>");
-                    p.addClass("replaceWord").attr({"data-syn": response[0].meta.syns[0][m],
-                                                    "data-toReplace": word}).text(response[0].meta.syns[0][m]);
+                    p.addClass("replaceWord btn").attr({"data-syn": response[0].meta.syns[0][m],
+                                                    "data-toReplace": word,
+                                                    "data-toggle": "tooltip",
+                                                    "data-placement": "bottom",
+                                                    "title": "Replace & re-analyze"}).text(response[0].meta.syns[0][m]);
                     $("#syn-" + userId).prepend(p);
 
                     p.on("click", function(){
@@ -328,8 +329,11 @@ $(document).ready(function () {
                 for (let l = 0; l < response[0].meta.ants[0].length; l++) {
 
                     var p = $("<p>");
-                    p.addClass("replaceWord").attr({"data-ant": response[0].meta.ants[0][l],
-                                                    "data-toReplace": word}).text(response[0].meta.ants[0][l]);
+                    p.addClass("replaceWord btn").attr({"data-ant": response[0].meta.ants[0][l],
+                                                    "data-toReplace": word,
+                                                    "data-toggle": "tooltip",
+                                                    "data-placement": "bottom",
+                                                    "title": "Replace & re-analyze"}).text(response[0].meta.ants[0][l]);
                     $("#ant-" + userId).prepend(p);
 
                     p.on("click", function(){

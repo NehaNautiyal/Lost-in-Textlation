@@ -193,7 +193,7 @@ h6{
     border-radius: 25px;
 }
 
-.triggerWord {
+.triggerWord, .btn {
     display: inline-block;
     background: #f9bf17;
     /* background-image: -webkit-linear-gradient(top, #BDC7BE, #EEF2F3);

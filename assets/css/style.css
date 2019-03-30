@@ -55,15 +55,88 @@ textarea{
 }
 .about  {
     animation-name: example;
-   animation-duration: 8s;
+   animation-duration: 6s;
    animation-iteration-count: initial;
    animation-fill-mode: forwards;
-   animation-delay: 3s;
+   animation-delay: 2s;
    height: 100vh;
    position: relative;
    margin: 0px;
     /* background: silver; */
 }
+.lit    {
+    -webkit-animation: heartbeat 2.75s ease-in-out 6.5s infinite both;
+	        animation: heartbeat 2.75s ease-in-out 6.5s infinite both;
+}
+@-webkit-keyframes heartbeat {
+    from {
+      -webkit-transform: scale(1);
+              transform: scale(1);
+      -webkit-transform-origin: center center;
+              transform-origin: center center;
+      -webkit-animation-timing-function: ease-out;
+              animation-timing-function: ease-out;
+    }
+    10% {
+      -webkit-transform: scale(0.91);
+              transform: scale(0.91);
+      -webkit-animation-timing-function: ease-in;
+              animation-timing-function: ease-in;
+    }
+    17% {
+      -webkit-transform: scale(0.98);
+              transform: scale(0.98);
+      -webkit-animation-timing-function: ease-out;
+              animation-timing-function: ease-out;
+    }
+    33% {
+      -webkit-transform: scale(0.87);
+              transform: scale(0.87);
+      -webkit-animation-timing-function: ease-in;
+              animation-timing-function: ease-in;
+    }
+    45% {
+      -webkit-transform: scale(1);
+              transform: scale(1);
+      -webkit-animation-timing-function: ease-out;
+              animation-timing-function: ease-out;
+    }
+  }
+  @keyframes heartbeat {
+    from {
+      -webkit-transform: scale(1);
+              transform: scale(1);
+      -webkit-transform-origin: center center;
+              transform-origin: center center;
+      -webkit-animation-timing-function: ease-out;
+              animation-timing-function: ease-out;
+    }
+    10% {
+      -webkit-transform: scale(0.91);
+              transform: scale(0.91);
+      -webkit-animation-timing-function: ease-in;
+              animation-timing-function: ease-in;
+    }
+    17% {
+      -webkit-transform: scale(0.98);
+              transform: scale(0.98);
+      -webkit-animation-timing-function: ease-out;
+              animation-timing-function: ease-out;
+    }
+    33% {
+      -webkit-transform: scale(0.87);
+              transform: scale(0.87);
+      -webkit-animation-timing-function: ease-in;
+              animation-timing-function: ease-in;
+    }
+    45% {
+      -webkit-transform: scale(1);
+              transform: scale(1);
+      -webkit-animation-timing-function: ease-out;
+              animation-timing-function: ease-out;
+    }
+  }
+  
 td {
     vertical-align: top
 }
@@ -89,10 +162,10 @@ i {
 }
 .smiley  {
     animation-name: example1;
-    animation-duration: 8s;
+    animation-duration: 6s;
     animation-iteration-count: initial;
     animation-fill-mode: forwards;
-    animation-delay: 3s;
+    animation-delay: 2s;
     height: 100vh;
     position: relative;
     margin: 0px;
@@ -163,7 +236,7 @@ footer{
         backface-visibility: hidden;
     }
 
-    .middle {
+    /* .middle {
         transition: .5s ease;
         opacity: 0;
         position: absolute;
@@ -173,7 +246,7 @@ footer{
         -ms-transform:
         translate(-50%, -50%);
         text-align: center;
-    }
+    } */
     .lit:hover {
     opacity: 0.3;
 }

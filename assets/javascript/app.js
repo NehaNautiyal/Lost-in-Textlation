@@ -309,7 +309,7 @@ $(document).ready(function () {
 
         newTableHeight.append(sv.text);
         newTableDataPol.text(`${polConPer.toFixed(2)}% confident it's ${sv.analysis.polarity} `);
-        newTableDataScore.text(sv.analysis.score);
+        newTableDataScore.addClass("score").html(`${sv.analysis.score}<br>`);
         newTableDataEmoji.addClass("emoji");
         newTableDataScore.append(newTableDataEmoji);
 
@@ -363,11 +363,7 @@ $(document).ready(function () {
             method: "GET"
         }).then(function (response) {
 
-            // //Reset the local state.analysis.syn & ant array
-            // state.analysis.syn = [];
-            // state.analysis.ant = [];
-
-            //Each word 
+            $(".syn, .ant").text("");
 
             if (response[0].meta.syns[0].length !== 0) {
                 for (let m = 0; m < response[0].meta.syns[0].length; m++) {
@@ -385,11 +381,6 @@ $(document).ready(function () {
                         $("#syn-" + userId).children().attr("data-toReplace", syn);
                         setTimeout(doneTyping, 1000);
                     });
-
-                    // var synonymsFromMerriam = response[0].meta.syns[0][m];
-                    // state.analysis.syn.push(synonymsFromMerriam);
-                    // // $("#syn-" + userId).text(state.analysis.syn.join(" "));
-                    // $("#syn-" + userId).text(newTableDataSyn);
                 }
 
             } else {
@@ -413,11 +404,7 @@ $(document).ready(function () {
                         $("#ant-" + userId).children().attr("data-toReplace", ant);
                         setTimeout(doneTyping, 1000);
                     });
-
-                    // var antonymsFromMerriam = response[0].meta.ants[0][l];
-                    // state.analysis.ant.push(antonymsFromMerriam);
                 }
-                // $("#ant-" + userId).text(state.analysis.ant.join(" "));
             } else if (response[0].meta.ants.length === 0) {
                 $("#ant-" + userId).text("No antonyms listed");
             }

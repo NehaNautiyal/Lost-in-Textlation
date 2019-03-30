@@ -254,8 +254,11 @@ $(document).ready(function () {
     database.ref("/users").on("child_changed", function (snapshot) {
         // database.ref("/users/" + userId).on("child_changed", function (snapshot) {
         var sv = snapshot.val();
-        console.log(sv);
-
+        console.log(sv.id);
+        console.log(userId);
+        if (sv.id !== userId) {
+            return;
+        }
         // Update the html display
 
         var newTableHeight = $('<th scope="row">'); //Analysis

@@ -363,9 +363,9 @@ $(document).ready(function () {
             method: "GET"
         }).then(function (response) {
 
-            //Reset the local state.analysis.syn & ant array
-            state.analysis.syn = [];
-            state.analysis.ant = [];
+            // //Reset the local state.analysis.syn & ant array
+            // state.analysis.syn = [];
+            // state.analysis.ant = [];
 
             //Each word 
 
@@ -377,19 +377,14 @@ $(document).ready(function () {
                                                     "data-toReplace": word}).text(response[0].meta.syns[0][m]);
                     $("#syn-" + userId).prepend(p);
 
-
-
                     p.on("click", function(){
                         var syn = $(this).attr("data-syn");
                         var word = $(this).attr("data-toReplace");
                         var originalInput = $("#submit-text").val();
                         $("#submit-text").val(originalInput.replace(word, syn));
-                        console.log(`Word to do the replacing: ${syn} and what's being replaced: ${word}`);
                         $("#syn-" + userId).children().attr("data-toReplace", syn);
                         setTimeout(doneTyping, 1000);
-
                     });
-
 
                     // var synonymsFromMerriam = response[0].meta.syns[0][m];
                     // state.analysis.syn.push(synonymsFromMerriam);
@@ -402,17 +397,27 @@ $(document).ready(function () {
             }
 
 
-
-
-
-
-
             if (response[0].meta.ants[0].length !== 0) {
                 for (let l = 0; l < response[0].meta.ants[0].length; l++) {
-                    var antonymsFromMerriam = response[0].meta.ants[0][l];
-                    state.analysis.ant.push(antonymsFromMerriam);
+
+                    var p = $("<p>");
+                    p.addClass("replaceWord").attr({"data-ant": response[0].meta.ants[0][l],
+                                                    "data-toReplace": word}).text(response[0].meta.ants[0][l]);
+                    $("#ant-" + userId).prepend(p);
+
+                    p.on("click", function(){
+                        var ant = $(this).attr("data-ant");
+                        var word = $(this).attr("data-toReplace");
+                        var originalInput = $("#submit-text").val();
+                        $("#submit-text").val(originalInput.replace(word, ant));
+                        $("#ant-" + userId).children().attr("data-toReplace", ant);
+                        setTimeout(doneTyping, 1000);
+                    });
+
+                    // var antonymsFromMerriam = response[0].meta.ants[0][l];
+                    // state.analysis.ant.push(antonymsFromMerriam);
                 }
-                $("#ant-" + userId).text(state.analysis.ant.join(" "));
+                // $("#ant-" + userId).text(state.analysis.ant.join(" "));
             } else if (response[0].meta.ants.length === 0) {
                 $("#ant-" + userId).text("No antonyms listed");
             }

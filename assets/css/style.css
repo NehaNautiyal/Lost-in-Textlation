@@ -55,7 +55,7 @@ textarea{
 }
 .about  {
     animation-name: example;
-   animation-duration: 6s;
+   animation-duration: 5s;
    animation-iteration-count: initial;
    animation-fill-mode: forwards;
    animation-delay: 2s;
@@ -138,7 +138,7 @@ textarea{
   }
   
 td {
-    vertical-align: top
+    vertical-align: middle;
 }
 .table td, .table, .table th {
     vertical-align: top
@@ -147,9 +147,16 @@ td {
     margin-right: 12px;
     margin-top: 8px;
 }
-i {
-    vertical-align: middle
-}
+/* .emoji {
+    vertical-align: top;
+    display: flex;
+    justify-content: right;
+} */
+
+/* .score {
+    display: flex;
+    align-content: left;
+} */
 @keyframes example1  {
     from {bottom: 0px;}
     to {bottom: 825px;}
@@ -162,7 +169,7 @@ i {
 }
 .smiley  {
     animation-name: example1;
-    animation-duration: 6s;
+    animation-duration: 5s;
     animation-iteration-count: initial;
     animation-fill-mode: forwards;
     animation-delay: 2s;
@@ -170,7 +177,7 @@ i {
     position: relative;
     margin: 0px;
 }
-p{
+h6{
     font-family: 'Source Code Pro', monospace;
     color: #083b66;
     font-weight: bold;
@@ -184,6 +191,25 @@ p{
     text-align: left;
     padding: 10px;
     border-radius: 25px;
+}
+
+p {
+    display: inline-block;
+    background: #BDC7BE;
+    background-image: -webkit-linear-gradient(top, #BDC7BE, #EEF2F3);
+    background-image: -moz-linear-gradient(top, #BDC7BE, #EEF2F3);
+    background-image: -ms-linear-gradient(top, #BDC7BE, #EEF2F3);
+    background-image: -o-linear-gradient(top, #BDC7BE, #EEF2F3);
+    background-image: linear-gradient(to bottom, #BDC7BE, #EEF2F3);
+    -webkit-border-radius: 28;
+    -moz-border-radius: 28;
+    border-radius: 28px;
+    font-family: 'Source Code Pro', monospace;
+    color: #083b66;
+    font-size: 8px;
+    padding: 2px 5px 2px 5px;
+    border: solid #083b66 1px;
+    text-decoration: none;
 }
 
 button {

@@ -42,7 +42,7 @@ $(document).ready(function () {
                 }
             });
 
-            userId = profile.key; 
+            userId = profile.key;
 
             // Remove their profile when they disconnect
             profile.onDisconnect().remove();
@@ -50,7 +50,7 @@ $(document).ready(function () {
         }
 
         //Get a unique key for each window that connects
-        
+
     });
 
     // When first loaded or when the connections list changes...
@@ -254,13 +254,18 @@ $(document).ready(function () {
     database.ref("/users").on("child_changed", function (snapshot) {
         // database.ref("/users/" + userId).on("child_changed", function (snapshot) {
         var sv = snapshot.val();
-        console.log(sv);
-
+        console.log(sv.id);
+        console.log(userId);
+        if (sv.id !== userId) {
+            return;
+        }
         // Update the html display
 
         var newTableHeight = $('<th scope="row">'); //Analysis
-        var newTableRow = $("<tr>").attr({id: "analysis-" + num,
-                                        id: "analysis-" + userId});
+        var newTableRow = $("<tr>").attr({
+            id: "analysis-" + num,
+            id: "analysis-" + userId
+        });
         var newTableDataTrigWord = $("<td>"); //Trigger Word
         var newTableDataSyn = $("<td>"); //Synonyms
         var newTableDataAnt = $("<td>"); //Antonyms
@@ -274,10 +279,14 @@ $(document).ready(function () {
             var b = $("<button>");
             b.addClass("triggerWord").attr("id", sv.analysis.positiveWords[j]).text(sv.analysis.positiveWords[j]);
             newTableDataTrigWord.prepend(b);
-            newTableDataSyn.text(sv.analysis.syn).addClass("syn").attr({id: "syn-" + sv.analysis.positiveWords[j],
-                                                                        id: "syn-" + userId});
-            newTableDataAnt.text(sv.analysis.ant).addClass("ant").attr({id: "ant-" + sv.analysis.positiveWords[j],
-                                                                        id: "ant-" + userId});
+            newTableDataSyn.text(sv.analysis.syn).addClass("syn").attr({
+                id: "syn-" + sv.analysis.positiveWords[j],
+                id: "syn-" + userId
+            });
+            newTableDataAnt.text(sv.analysis.ant).addClass("ant").attr({
+                id: "ant-" + sv.analysis.positiveWords[j],
+                id: "ant-" + userId
+            });
 
         }
 
@@ -286,10 +295,14 @@ $(document).ready(function () {
             var b = $("<button>");
             b.addClass("triggerWord").attr("id", sv.analysis.negativeWords[k]).text(sv.analysis.negativeWords[k]);
             newTableDataTrigWord.prepend(b);
-            newTableDataSyn.text(sv.analysis.syn).addClass("syn").attr({id: "syn-" + sv.analysis.negativeWords[k],
-                                                                        id: "syn-" + userId});
-            newTableDataAnt.text(sv.analysis.ant).addClass("ant").attr({id: "ant-" + sv.analysis.negativeWords[k],
-                                                                        id: "ant-" + userId});
+            newTableDataSyn.text(sv.analysis.syn).addClass("syn").attr({
+                id: "syn-" + sv.analysis.negativeWords[k],
+                id: "syn-" + userId
+            });
+            newTableDataAnt.text(sv.analysis.ant).addClass("ant").attr({
+                id: "ant-" + sv.analysis.negativeWords[k],
+                id: "ant-" + userId
+            });
         }
 
         var polConPer = sv.analysis.polarity_confidence * 100;
@@ -354,16 +367,45 @@ $(document).ready(function () {
             state.analysis.syn = [];
             state.analysis.ant = [];
 
+            //Each word 
+
             if (response[0].meta.syns[0].length !== 0) {
                 for (let m = 0; m < response[0].meta.syns[0].length; m++) {
-                    var synonymsFromMerriam = response[0].meta.syns[0][m];
-                    state.analysis.syn.push(synonymsFromMerriam);
-                    $("#syn-" + userId).text(state.analysis.syn.join(" "));
+
+                    var p = $("<p>");
+                    p.addClass("replaceWord").attr({"data-syn": response[0].meta.syns[0][m],
+                                                    "data-toReplace": word}).text(response[0].meta.syns[0][m]);
+                    $("#syn-" + userId).prepend(p);
+
+
+
+                    p.on("click", function(){
+                        var syn = $(this).attr("data-syn");
+                        var word = $(this).attr("data-toReplace");
+                        var originalInput = $("#submit-text").val();
+                        $("#submit-text").val(originalInput.replace(word, syn));
+                        console.log(`Word to do the replacing: ${syn} and what's being replaced: ${word}`);
+                        $("#syn-" + userId).children().attr("data-toReplace", syn);
+                        setTimeout(doneTyping, 1000);
+
+                    });
+
+
+                    // var synonymsFromMerriam = response[0].meta.syns[0][m];
+                    // state.analysis.syn.push(synonymsFromMerriam);
+                    // // $("#syn-" + userId).text(state.analysis.syn.join(" "));
+                    // $("#syn-" + userId).text(newTableDataSyn);
                 }
 
             } else {
                 $("#syn-" + userId).text("No synonyms listed");
             }
+
+
+
+
+
+
 
             if (response[0].meta.ants[0].length !== 0) {
                 for (let l = 0; l < response[0].meta.ants[0].length; l++) {

@@ -41,16 +41,13 @@ $(document).ready(function () {
                     ant: "None requested"
                 }
             });
-
+            //Get a unique key for each window that connects
             userId = profile.key;
 
             // Remove their profile when they disconnect
             profile.onDisconnect().remove();
 
         }
-
-        //Get a unique key for each window that connects
-
     });
 
     // When first loaded or when the connections list changes...
@@ -62,13 +59,14 @@ $(document).ready(function () {
     });
 
     //____________________________________________________________________________________________________________
-    // Initialize some variables
+    // Initialize some variables at local level;
     var analyze;
     var polarity;
     var subjectivity;
     var polarity_confidence;
     var subjectivity_confidence;
     var num = 0;
+    var showDirections = true;
 
     var state = {
         id: "",
@@ -90,77 +88,19 @@ $(document).ready(function () {
     $("#submit-text").keypress(function (event) {
         // If the user presses the spacebar
         if (event.which === 32) {
-
-            analyze = $("#submit-text").val().trim();
-
-            var sentimood = new Sentimood();
-            var analysis = sentimood.analyze(analyze);
-            var positivity = sentimood.positivity(analyze);
-            var negativity = sentimood.negativity(analyze);
-            var score = analysis.score
-            var positiveWords = positivity.words
-            var negativeWords = negativity.words
-
-            var apiURL = "https://cors-anywhere.herokuapp.com/https://api.aylien.com/api/v1/sentiment";
-
-            $.ajax({
-                url: apiURL,
-                headers: {
-                    "X-AYLIEN-TextAPI-Application-Key": "61ffcd895f4e02c544e7bb1732b494bb",
-                    "X-AYLIEN-TextAPI-Application-Id": "dd4fff67"
-                },
-                data: {
-                    text: analyze
-                },
-                async: true,
-                crossDomain: true,
-                dataType: "json",
-                contentType: "application/json",
-                method: "GET"
-            }).then(function (response) {
-                console.log(response);
-                polarity = response.polarity;
-                subjectivity = response.subjectivity;
-                polarity_confidence = response.polarity_confidence;
-                subjectivity_confidence = response.subjectivity_confidence;
-
-                // Update this in the database
-                usersRef.child(userId).update({
-                    id: userId,
-                    text: analyze,
-                    analysis: {
-                        polarity: polarity,
-                        polarity_confidence: polarity_confidence,
-                        subjectivity: subjectivity,
-
-                        subjectivity_confidence: subjectivity_confidence,
-                        score: score,
-                        syn: "None requested",
-                        ant: "None requested",
-                        positiveWords: positiveWords,
-                        negativeWords: negativeWords
-                    }
-                });
-
-                // Update the local variables
-                state.text = analyze;
-                state.analysis.polarity = polarity;
-                state.analysis.polarity_confidence = polarity_confidence;
-                state.analysis.subjectivity = subjectivity;
-                state.analysis.subjectivity_confidence = subjectivity_confidence;
-
-                state.analysis.score = score
-                state.analysis.positiveWords = positiveWords;
-                state.analysis.negativeWords = negativeWords;
-
-            });
+            doneTyping();
         }
     });
 
     //____________________________________________________________________________________________________________
+    function directions(){
+
+        showDirections = false;
+    }
+    //____________________________________________________________________________________________________________
     //setup before functions
     var typingTimer;                //timer identifier
-    var doneTypingInterval = 1000;
+    var doneTypingInterval = 500;
 
     //on keyup, start the countdown
     $("#submit-text").on('keyup', function () {
@@ -174,7 +114,7 @@ $(document).ready(function () {
     });
 
     //____________________________________________________________________________________________________________
-    //save function
+    //save function to analyze text, make Aylien API call
     function doneTyping() {
         analyze = $("#submit-text").val().trim();
 
@@ -185,11 +125,6 @@ $(document).ready(function () {
         var score = analysis.score
         var positiveWords = positivity.words
         var negativeWords = negativity.words
-        console.log(analysis);
-        console.log(score);
-        console.log(positiveWords); //is an array
-        console.log(negativeWords);
-
 
         var apiURL = "https://cors-anywhere.herokuapp.com/https://api.aylien.com/api/v1/sentiment";
 
@@ -249,18 +184,17 @@ $(document).ready(function () {
 
     //____________________________________________________________________________________________________________
     // If anything changes in the usersRef in the firebase, that needs to be updated in the HTML
-    //PROBLEM- is it possible to specify which child changing? I don't want just the usersRef being changed
-    //but the children node of the userId
     database.ref("/users").on("child_changed", function (snapshot) {
         // database.ref("/users/" + userId).on("child_changed", function (snapshot) {
         var sv = snapshot.val();
-        console.log(sv.id);
-        console.log(userId);
+   
+        //If the userId of the person doesn't match what's in firebase, they will not see the analysis of a different user
         if (sv.id !== userId) {
+            //return here means it will get out of this
             return;
         }
-        // Update the html display
 
+        // Update the html display
         var newTableHeight = $('<th scope="row">'); //Analysis
         var newTableRow = $("<tr>").attr({
             id: "analysis-" + num,
@@ -350,7 +284,9 @@ $(document).ready(function () {
             rows = Math.ceil((this.scrollHeight - this.baseScrollHeight) / 22);
             this.rows = minRows + rows;
         });
+
     //_______________________________________________________________________
+    // When a "key word" is pressed, antonyms and synonyms will show up as buttons
 
     $(document).on("click", ".triggerWord", function () {
         var word = $(this).attr("id");

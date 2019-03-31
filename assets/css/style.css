@@ -16,6 +16,9 @@ h1 {
     font-weight: bolder;
 }
 
+br {
+    line-height: 1.75em;
+}
 textarea{  
     display: block;
     box-sizing: padding-box;
@@ -51,7 +54,8 @@ textarea{
 }
 @keyframes example  {
         from {bottom: 0px;}
-        to {bottom: 825px;}
+        /* to {bottom: 825px;} */
+        to {bottom: 100vh;}
 }
 .about  {
     animation-name: example;
@@ -65,8 +69,10 @@ textarea{
     /* background: silver; */
 }
 .lit    {
-    -webkit-animation: heartbeat 2.75s ease-in-out 6.5s infinite both;
-	        animation: heartbeat 2.75s ease-in-out 6.5s infinite both;
+    /* -webkit-animation: heartbeat 2.75s ease-in-out 6.5s infinite both;
+            animation: heartbeat 2.75s ease-in-out 6.5s infinite both; */
+    -webkit-animation: heartbeat 2.75s ease-in-out 6.5s 6 both;
+            animation: heartbeat 2.75s ease-in-out 6.5s 6 both;
 }
 @-webkit-keyframes heartbeat {
     from {
@@ -159,7 +165,8 @@ td {
 } */
 @keyframes example1  {
     from {bottom: 0px;}
-    to {bottom: 825px;}
+    to {bottom: 100vh;}
+    /* to {bottom: 825px;} */
 }
 .smiles {
     height: 100vh;

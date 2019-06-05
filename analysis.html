@@ -7,8 +7,8 @@
     <title>Lost in Textlation</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="icon" href="https://nehanautiyal.github.io/Project-1/assets/images/LIT-2.png"
-        type="image/x-icon">
+    <!-- Icon on the Tab -->
+    <link rel="icon" href="https://nehanautiyal.github.io/Project-1/assets/images/LIT-2.png" type="image/x-icon">
     <!-- Google Fonts Reference -->
     <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
@@ -19,33 +19,32 @@
     <!-- Emoji Reference -->
     <link rel="stylesheet" href="assets/css/twemoji-awesome.css">
 
-
 </head>
 
 <body>
     <div class="container">
-        <div id="fb-root"></div>
-        <script async defer crossorigin="anonymous"
-            src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script>
 
-        <h1>Lost in Textlation...</h1>
+        <div id="fb-root"></div>
+        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script>
+        <div class="logo">
+            <!-- <img src="assets/images/LIT-2.png" width=150px height=150px></a> -->
+            <a href="./index.html#logo"><img class="lit" src="assets/images/LIT-2.png" width=250px height=250px></a>
+            </div>
         
         <div class="row justify-content-center">
-            <a href="https://twitter.com/intent/tweet?button_hashtag=lostintextlation&ref_src=twsrc%5Etfw"
-                class="twitter-hashtag-button" data-show-count="false" height="28">Tweet #lostintextlation</a>
-    
-            <iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fnehanautiyal.github.io%2FProject-1&layout=button_count&size=large&mobile_iframe=true&width=83&height=28&appId"
+            <!-- <a href="https://twitter.com/intent/tweet?button_hashtag=lostintextlation&ref_src=twsrc%5Etfw" class="twitter-hashtag-button"
+            data-show-count="false" height="28">Tweet #lostintextlation</a> -->
+
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fnehanautiyal.github.io%2FProject-1&amp;src=sdkpreparse" target="_blank" class="zocial facebook">Share on Facebook</a>
+                <a href="https://twitter.com/intent/tweet?button_hashtag=lostintextlation&ref_src=twsrc%5Etfw" target="_blank" class="zocial twitter">#lostintextlation</a>
+
+            <!-- <iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fnehanautiyal.github.io%2FProject-1&layout=button_count&size=large&mobile_iframe=true&width=83&height=28&appId"
                 width="83" height="28" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
-                allowTransparency="true"></iframe>
+                allowTransparency="true"></iframe> -->
         </div>
-
-        <div class="form-group">
-            <input class="form-control" for="text-input" id="submit-text"
-                placeholder="Type your text for analysis or paste your text here" type="text">
-        </div>
-        <!-- <button class="btn btn-primary" id="submit-btn">Check Tone</button> -->
-
-
+        <div id="connected-viewers"></div>
+        <!-- <textarea class="autoExpand" rows='1' data-min-rows='1' for="text-input" id="submit-text" placeholder="Type your text for analysis or paste your text here"></textarea> -->
+        <textarea class="autoExpand" rows='1' data-min-rows='1' input type=x-webkit-speech id="submit-text" placeholder="Type your text for analysis or paste your text here"></textarea>
         <div class="row">
             <div class="card col-lg-12 pl-0 pr-0">
                 <div class="bg card-header text-light" style="background: #083b66">
@@ -56,7 +55,6 @@
                         <thead>
                             <tr>
                                 <th scope="col">Text</th>
-
                                 <th scope="col">Key Words</th>
                                 <th scope="col">Synonyms</th>
                                 <th scope="col">Antonyms</th>
@@ -79,7 +77,6 @@
         <section>
             <div id="analysis"></div>
         </section>
-
 
 
 
